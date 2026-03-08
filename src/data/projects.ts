@@ -11,58 +11,69 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "adaptive-learning-engine",
-    title: "Adaptive Learning Engine",
+    slug: "scalable-digital-learning",
+    title: "Self-Paced Digital Learning System",
     year: "2025",
-    category: "Ed-Tech Platform",
+    category: "Scalable Delivery",
     description:
-      "An AI-powered learning platform that dynamically adjusts content difficulty, pacing, and modality based on real-time learner performance data.",
-    icon: "\u{1F9E0}",
-    tags: ["AI/ML", "Adaptive Learning", "React", "Python"],
+      "Designed and built self-paced digital learning experiences using Canvas LMS and Articulate Storyline 360, enabling scalable online training for approximately 500 learners per semester.",
+    icon: "\u{1F4BB}",
+    tags: ["Canvas LMS", "Articulate Storyline 360", "Self-Paced", "500+ Learners"],
     featured: true,
   },
   {
-    slug: "microlearning-os",
-    title: "Microlearning OS",
+    slug: "ta-onboarding-program",
+    title: "TA Onboarding Mini-Course",
     year: "2025",
-    category: "Mobile Learning",
-    description:
-      "A bite-sized learning delivery system designed for corporate upskilling. Three-minute modules with spaced repetition and gamification loops.",
-    icon: "\u{1F4F1}",
-    tags: ["Mobile", "Gamification", "Spaced Repetition"],
-    featured: true,
-  },
-  {
-    slug: "vr-lab-simulations",
-    title: "VR Lab Simulations",
-    year: "2024",
-    category: "Immersive Learning",
-    description:
-      "Photorealistic virtual laboratory environments for chemistry and biology students with full haptic feedback integration.",
-    icon: "\u{1F97D}",
-    tags: ["VR/XR", "Unity", "Haptics", "STEM"],
-    featured: true,
-  },
-  {
-    slug: "competency-framework",
-    title: "Competency Framework",
-    year: "2024",
-    category: "Assessment Design",
-    description:
-      "A rubric-based assessment engine mapping learner progress to competency matrices across 200+ skill dimensions.",
-    icon: "\u{1F4CA}",
-    tags: ["Assessment", "Data Viz", "Competency Mapping"],
-    featured: true,
-  },
-  {
-    slug: "onboarding-journey",
-    title: "Onboarding Journey",
-    year: "2023",
     category: "Instructional Design",
     description:
-      "A 90-day structured onboarding experience for a Fortune 500 tech company. Reduced time-to-productivity by 40%.",
+      "Created a standardized onboarding program that reduced variability across the teaching team, improved instructional consistency, and enabled scalable, repeatable training delivery.",
     icon: "\u{1F680}",
-    tags: ["Corporate L&D", "Journey Mapping", "ADDIE"],
+    tags: ["Onboarding", "Standardization", "LMS", "Repeatable Training"],
     featured: true,
+  },
+  {
+    slug: "k12-mandarin-curriculum",
+    title: "K\u201312 Mandarin Curriculum",
+    year: "2023",
+    category: "Curriculum Design",
+    description:
+      "Designed semester-based Mandarin curricula grounded in second language acquisition theory for English-speaking learners, supporting ~100 students with iterative, outcomes-based design.",
+    icon: "\u{1F4DA}",
+    tags: ["K\u201312", "SLA Theory", "Assessment", "Iterative Design"],
+    featured: true,
+  },
+  {
+    slug: "instructor-led-seminars",
+    title: "Interactive Seminar Design",
+    year: "2025",
+    category: "Facilitation Design",
+    description:
+      "Facilitated instructor-led seminars for cohorts of ~80 learners per session, designing interactive discussions and application activities aligned with course objectives.",
+    icon: "\u{1F3A4}",
+    tags: ["ILT", "80 Learners/Session", "Discussion Design", "Blended"],
+    featured: true,
+  },
+  {
+    slug: "corporate-training-system",
+    title: "Employee Training & Reference System",
+    year: "2025",
+    category: "Corporate Training",
+    description:
+      "Designed internal employee training materials to standardize social media operations and content practices at China Telecom Americas, recognized as best internal reference across the team.",
+    icon: "\u{1F4C8}",
+    tags: ["Corporate L&D", "Standardization", "Best Practice"],
+    featured: true,
+  },
+  {
+    slug: "autism-caregiver-training",
+    title: "Caregiver Awareness Training",
+    year: "2024",
+    category: "Training Design",
+    description:
+      "Developed an introductory training module outlining key considerations for interacting with children with autism, supporting basic caregiver awareness and safe practice.",
+    icon: "\u{1F49C}",
+    tags: ["Sensitive Content", "Caregiver Training", "Volunteer"],
+    featured: false,
   },
 ];
