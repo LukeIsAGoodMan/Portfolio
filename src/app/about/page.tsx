@@ -226,7 +226,6 @@ export default function AboutPage() {
               </span>
             </motion.div>
           ))}
->>>>>>> 8b1465b (v1.3)
         </div>
       </section>
     </div>
