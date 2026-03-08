@@ -1,7 +1,12 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Environment, Float } from "@react-three/drei";
+import {
+  OrbitControls,
+  Environment,
+  Float,
+  ContactShadows,
+} from "@react-three/drei";
 import { useRef, useState, useMemo, useCallback } from "react";
 import * as THREE from "three";
 
@@ -61,22 +66,21 @@ function GlassCore({ hovered }: { hovered: boolean }) {
       <torusKnotGeometry args={[1, 0.35, 200, 32]} />
       <meshPhysicalMaterial
         ref={materialRef}
-        transmission={0.5}
-        roughness={0.12}
-        thickness={2.5}
-        ior={1.45}
+        transmission={0.98}
+        roughness={0.05}
+        thickness={4.0}
+        ior={1.55}
         clearcoat={1}
-        clearcoatRoughness={0.05}
-        envMapIntensity={1.8}
+        clearcoatRoughness={0.03}
+        envMapIntensity={2.0}
         color="#ffffff"
-        emissive={hovered ? "#1a1a3a" : "#0a0a1a"}
-        emissiveIntensity={hovered ? 0.15 : 0.05}
+        emissive={hovered ? "#181830" : "#0c0c18"}
+        emissiveIntensity={hovered ? 0.12 : 0.04}
         bumpMap={noiseTexture}
-        bumpScale={0.015}
+        bumpScale={0.012}
         transparent
-        opacity={0.85}
         attenuationColor={new THREE.Color("#d4e4ff")}
-        attenuationDistance={3}
+        attenuationDistance={2.5}
       />
     </mesh>
   );
@@ -121,8 +125,17 @@ function Scene() {
         color="#c4d4ff"
       />
 
-      {/* Environment for reflections/refractions (not background) */}
-      <Environment preset="city" background={false} />
+      {/* Studio environment — sophisticated reflections for expensive glass look */}
+      <Environment preset="studio" background={false} />
+
+      {/* Contact shadow grounds the object on the page */}
+      <ContactShadows
+        position={[0, -1.8, 0]}
+        opacity={0.25}
+        blur={3}
+        far={4}
+        scale={6}
+      />
 
       {/* Floating glass torus knot */}
       <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.35}>

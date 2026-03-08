@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/layout/Navigation";
 import MagneticCursor from "@/components/layout/MagneticCursor";
+import PageTransition from "@/components/layout/PageTransition";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <Navigation />
         <MagneticCursor />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
 
         {/* Minimal footer */}
         <footer className="border-t border-border py-10 px-6">
