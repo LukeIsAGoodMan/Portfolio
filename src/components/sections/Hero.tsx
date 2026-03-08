@@ -122,7 +122,7 @@ export default function Hero() {
           className="flex items-center justify-center gap-4 flex-wrap"
         >
           <a
-            href="#work"
+            href="/work"
             data-magnetic
             className="
               inline-flex items-center px-7 py-3.5

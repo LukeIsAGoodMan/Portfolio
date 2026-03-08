@@ -9,7 +9,7 @@ import { useJellyStretch } from "@/hooks/useJellyStretch";
 /* ─── Nav links ─── */
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/#work", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
 ];
 
