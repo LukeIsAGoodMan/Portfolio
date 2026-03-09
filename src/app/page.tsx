@@ -2,107 +2,17 @@
 
 import Hero from "@/components/sections/Hero";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
-import { useRef, useCallback, useState, useEffect } from "react";
 
 export default function Home() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  /* ── Scroll parallax (desktop) ── */
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-
-  /* ── Cursor-follow parallax (desktop) ── */
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springX = useSpring(cursorX, { damping: 40, stiffness: 120 });
-  const springY = useSpring(cursorY, { damping: 40, stiffness: 120 });
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      if (isMobile) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const cx = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 → 0.5
-      const cy = (e.clientY - rect.top) / rect.height - 0.5;
-      cursorX.set(cx * 30); // ±15px
-      cursorY.set(cy * 30);
-    },
-    [isMobile, cursorX, cursorY],
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    cursorX.set(0);
-    cursorY.set(0);
-  }, [cursorX, cursorY]);
-
   return (
     <>
       <Hero />
 
       {/* Quick Preview CTA — bridge to /work */}
-      <section
-        ref={sectionRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="relative mx-auto max-w-[1200px] px-6 py-32 text-center overflow-hidden"
-      >
-        {/* Background image — right-aligned on desktop, centered on mobile */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Desktop: scroll parallax + cursor follow */}
-          <motion.div
-            style={!isMobile ? { y: imageY, x: springX, translateY: springY } : undefined}
-            className="hidden md:block absolute inset-0 md:left-auto md:right-0 md:w-[55%]"
-          >
-            <Image
-              src="/photo1.png"
-              alt=""
-              fill
-              className="object-cover melt-mask opacity-[0.45]"
-              sizes="55vw"
-            />
-          </motion.div>
-
-          {/* Mobile: slow scale pulse */}
-          <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{
-              repeat: Infinity,
-              duration: 25,
-              ease: "easeInOut",
-            }}
-            className="md:hidden absolute inset-0"
-          >
-            <Image
-              src="/photo1.png"
-              alt=""
-              fill
-              className="object-cover melt-mask opacity-[0.25]"
-              sizes="100vw"
-            />
-          </motion.div>
-        </div>
-
-        <motion.div {...scrollRevealProps(0)} className="relative z-[1]">
+      <section className="mx-auto max-w-[1200px] px-6 py-32 text-center">
+        <motion.div {...scrollRevealProps(0)}>
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
             Portfolio
           </p>

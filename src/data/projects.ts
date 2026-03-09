@@ -93,6 +93,22 @@ export const projects: Project[] = [
     tags: ["ILT", "80 Learners/Session", "Discussion Design", "Blended"],
     featured: true,
     size: "medium",
+    image: "/photo1.png",
+  },
+  {
+    slug: "id-project-lab",
+    title: "ID Project Lab",
+    displayTitle: "Learn by\nDesigning.",
+    stat: "Cohort-based",
+    year: "2025",
+    category: "Professional Development",
+    description:
+      "Cohort-based lab focused on hands-on project development aligned with industry learning design standards, applying ID principles to needs analysis, strategy selection, and iterative improvement.",
+    icon: "\u{1F9EA}",
+    tags: ["Devlin Peck", "Needs Analysis", "Industry ID"],
+    featured: true,
+    size: "small",
+    image: "/photo8.png",
   },
   {
     slug: "autism-caregiver-training",
