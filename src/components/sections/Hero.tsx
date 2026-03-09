@@ -92,13 +92,13 @@ export default function Hero() {
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-[clamp(2rem,6vw,6.5rem)] font-semibold tracking-[-0.05em] leading-[1.04] mb-8"
+          className="text-[clamp(2rem,6vw,6.5rem)] font-semibold tracking-[-0.05em] leading-[1.04] mb-8 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900"
         >
           Designing experiences
           <br />
           that teach, inspire,
           <br />
-          <span className="text-muted">and transform.</span>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#86868b] via-[#6b7280] to-[#86868b]">and transform.</span>
         </motion.h1>
 
         {/* Subheadline */}

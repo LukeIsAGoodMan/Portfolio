@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
 import {
@@ -16,31 +17,115 @@ import {
 export default function AboutPage() {
   return (
     <div className="pt-28 pb-32">
-      {/* ── Hero intro ── */}
+      {/* ── Hero intro with portrait ── */}
       <section className="mx-auto max-w-[900px] px-6 mb-24">
-        <motion.div {...scrollRevealProps(0)} className="text-center mb-12">
-          <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-            About
-          </p>
-          <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.05em] leading-[1.08] mb-6">
-            {profile.name}
-          </h1>
-          <p className="text-lg text-muted max-w-[600px] mx-auto leading-[1.6]">
-            {profile.headline}
-          </p>
+        {/* Mobile portrait — centered header background */}
+        <motion.div
+          {...scrollRevealProps(0)}
+          className="md:hidden relative flex justify-center mb-10"
+        >
+          <div className="relative w-[220px] h-[300px]">
+            {/* Aura glow */}
+            <div
+              className="absolute -inset-8 rounded-full blur-3xl opacity-60"
+              style={{
+                background:
+                  "linear-gradient(to top right, rgba(59,130,246,0.10), rgba(139,92,246,0.06), transparent)",
+              }}
+            />
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 5,
+                ease: "easeInOut",
+              }}
+              className="relative w-full h-full rounded-[28px] overflow-hidden"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 60%, transparent 100%)",
+                maskImage:
+                  "linear-gradient(to bottom, black 60%, transparent 100%)",
+              }}
+            >
+              <Image
+                src="/photo_portfolio.jpg"
+                alt={profile.name}
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </motion.div>
+          </div>
         </motion.div>
 
-        {/* Bio paragraphs */}
-        <motion.div
-          {...scrollRevealProps(0.1)}
-          className="max-w-[640px] mx-auto space-y-5"
-        >
-          {profile.summary.map((paragraph, i) => (
-            <p key={i} className="text-[15px] text-muted leading-[1.7]">
-              {paragraph}
-            </p>
-          ))}
-        </motion.div>
+        {/* Desktop: side-by-side layout */}
+        <div className="flex flex-col md:flex-row md:items-start md:gap-16">
+          {/* Text column */}
+          <div className="flex-1">
+            <motion.div {...scrollRevealProps(0)} className="text-center md:text-left mb-12">
+              <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
+                About
+              </p>
+              <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.05em] leading-[1.08] mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900">
+                {profile.name}
+              </h1>
+              <p className="text-lg text-muted max-w-[600px] md:max-w-none leading-[1.6] mx-auto md:mx-0">
+                {profile.headline}
+              </p>
+            </motion.div>
+
+            {/* Bio paragraphs */}
+            <motion.div
+              {...scrollRevealProps(0.1)}
+              className="max-w-[640px] mx-auto md:mx-0 space-y-5"
+            >
+              {profile.summary.map((paragraph, i) => (
+                <p key={i} className="text-[15px] text-muted leading-[1.7]">
+                  {paragraph}
+                </p>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Desktop portrait — right column */}
+          <motion.div
+            {...scrollRevealProps(0.15)}
+            className="hidden md:block flex-shrink-0 relative"
+          >
+            {/* Aura glow */}
+            <div
+              className="absolute -inset-10 rounded-full blur-3xl opacity-50"
+              style={{
+                background:
+                  "linear-gradient(to top right, rgba(59,130,246,0.10), rgba(139,92,246,0.05), transparent)",
+              }}
+            />
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 5,
+                ease: "easeInOut",
+              }}
+              className="relative w-[260px] h-[340px] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 70%, transparent 100%)",
+                maskImage:
+                  "linear-gradient(to bottom, black 70%, transparent 100%)",
+              }}
+            >
+              <Image
+                src="/photo_portfolio.jpg"
+                alt={profile.name}
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* ── Stats banner ── */}

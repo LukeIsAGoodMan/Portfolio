@@ -68,14 +68,16 @@ function GlassCore({ hovered }: { hovered: boolean }) {
         ref={materialRef}
         transmission={0.98}
         roughness={0.05}
-        thickness={4.0}
+        thickness={3.0}
         ior={1.55}
+        iridescence={1.0}
+        iridescenceIOR={1.5}
         clearcoat={1}
         clearcoatRoughness={0.03}
         envMapIntensity={2.0}
         color="#ffffff"
-        emissive={hovered ? "#181830" : "#0c0c18"}
-        emissiveIntensity={hovered ? 0.12 : 0.04}
+        emissive={hovered ? "#6366f1" : "#6366f1"}
+        emissiveIntensity={hovered ? 0.35 : 0.2}
         bumpMap={noiseTexture}
         bumpScale={0.012}
         transparent
