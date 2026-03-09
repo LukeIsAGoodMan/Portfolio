@@ -37,11 +37,11 @@ export default function Footer() {
           <h2
             className="
               font-bold tracking-tighter
-              text-[10vw] md:text-[12vw]
+              text-[clamp(2.5rem,10vw,5rem)] sm:text-[clamp(3rem,10vw,6rem)] md:text-[12vw]
               leading-[0.85]
               text-[#d1d1d6]/60
               select-none
-              overflow-hidden
+              break-words
             "
           >
             DESIGN IS

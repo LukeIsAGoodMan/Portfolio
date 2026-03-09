@@ -125,9 +125,17 @@ export default function MockupCard({ project, className = "" }: MockupCardProps)
             `}
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-          {/* Text-readability overlay — strengthens on hover */}
+          {/* Mobile: opaque overlay, no blur — full legibility.
+              Desktop: lighter overlay with hover-activated blur. */}
           <div
-            className="absolute inset-0 transition-all duration-500"
+            className="absolute inset-0 transition-all duration-500 md:hidden"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(255,255,255,0.95) 35%, rgba(255,255,255,0.7) 65%, rgba(255,255,255,0.4) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 transition-all duration-500 hidden md:block"
             style={{
               background: isHovered
                 ? "linear-gradient(to top, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.55) 70%, rgba(255,255,255,0.2) 100%)"
@@ -181,7 +189,7 @@ export default function MockupCard({ project, className = "" }: MockupCardProps)
             </span>
           )}
           {project.caseStudy && (
-            <span className="text-[13px] font-medium text-muted group-hover:text-foreground transition-colors duration-300 flex items-center gap-1.5">
+            <span className="text-[13px] font-medium text-muted group-hover:text-foreground transition-colors duration-300 flex items-center gap-1.5 min-h-[44px]">
               View Case Study
               <svg
                 width="14"

@@ -103,7 +103,7 @@ export default function Hero() {
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-lg md:text-2xl font-medium mt-4 max-w-2xl mx-auto leading-[1.35] tracking-[-0.01em] bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-700 to-slate-900"
+          className="text-lg md:text-2xl font-medium mt-4 max-w-2xl mx-auto leading-[1.5] tracking-[-0.01em] bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-700 to-slate-900"
         >
           Bridging the gap between complexity and clarity.
         </motion.h3>
