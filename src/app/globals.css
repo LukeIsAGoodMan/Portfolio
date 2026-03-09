@@ -70,6 +70,25 @@ body::after {
   }
 }
 
+/* ─── Mobile-only 3D canvas edge feathering ─── */
+.canvas-feather {
+  -webkit-mask-image: radial-gradient(circle, black 70%, transparent 100%);
+  mask-image: radial-gradient(circle, black 70%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .canvas-feather {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* ─── Safe area insets for gesture-nav devices (iPhone notch, home bar) ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,

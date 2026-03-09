@@ -92,14 +92,14 @@ export default function AboutPage() {
             Professional Experience
           </h2>
         </motion.div>
-        <div className="space-y-16 border-l border-border pl-8">
+        <div className="space-y-16 border-l border-border pl-5 md:pl-8">
           {experience.map((item, i) => (
             <motion.div
               key={item.period}
               {...scrollRevealProps(i * 0.08)}
               className="relative"
             >
-              <div className="absolute -left-[37px] top-1.5 w-2 h-2 rounded-full bg-foreground" />
+              <div className="absolute -left-[25px] md:-left-[37px] top-1.5 w-2 h-2 rounded-full bg-foreground" />
               <p className="text-[12px] uppercase tracking-[0.12em] text-muted mb-2 font-medium">
                 {item.period}
               </p>

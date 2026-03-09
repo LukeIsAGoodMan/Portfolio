@@ -60,10 +60,11 @@ export default function Hero() {
           top-1/2 -translate-y-[55%]
           w-[80vw] md:w-[50vw] lg:w-[42vw]
           max-w-[620px]
-          h-[400px] md:h-[500px] lg:h-[600px]
+          h-[300px] md:h-[500px] lg:h-[600px]
           opacity-50 md:opacity-65 lg:opacity-80
           pointer-events-none md:pointer-events-auto
           transition-opacity duration-1000
+          canvas-feather
         "
       >
         <KnowledgeCore />
@@ -91,7 +92,7 @@ export default function Hero() {
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold tracking-[-0.05em] leading-[1.04] mb-8"
+          className="text-[clamp(2rem,6vw,6.5rem)] font-semibold tracking-[-0.05em] leading-[1.04] mb-8"
         >
           Designing experiences
           <br />

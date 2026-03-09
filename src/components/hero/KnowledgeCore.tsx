@@ -7,7 +7,7 @@ import {
   Float,
   ContactShadows,
 } from "@react-three/drei";
-import { useRef, useState, useMemo, useCallback } from "react";
+import { useRef, useState, useMemo, useCallback, useEffect } from "react";
 import * as THREE from "three";
 
 /* ─────────────────────────────────────────────
@@ -90,7 +90,7 @@ function GlassCore({ hovered }: { hovered: boolean }) {
  * Scene — composes lighting, glass mesh,
  * orbit controls with reactive auto-rotate speed
  * ───────────────────────────────────────────── */
-function Scene() {
+function Scene({ isMobile }: { isMobile: boolean }) {
   const [hovered, setHovered] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controlsRef = useRef<any>(null);
@@ -102,7 +102,7 @@ function Scene() {
   // Smooth transitions for auto-rotate speed and glow light
   useFrame(() => {
     if (controlsRef.current) {
-      const targetSpeed = hovered ? 2.8 : 0.6;
+      const targetSpeed = isMobile ? 0.4 : hovered ? 2.8 : 0.6;
       controlsRef.current.autoRotateSpeed +=
         (targetSpeed - controlsRef.current.autoRotateSpeed) * 0.04;
     }
@@ -139,22 +139,24 @@ function Scene() {
 
       {/* Floating glass torus knot */}
       <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.35}>
-        <group onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
+        <group onPointerOver={isMobile ? undefined : onPointerOver} onPointerOut={isMobile ? undefined : onPointerOut}>
           <GlassCore hovered={hovered} />
         </group>
       </Float>
 
-      {/* Orbit — rotation only, no zoom/pan */}
-      <OrbitControls
-        ref={controlsRef}
-        makeDefault
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.6}
-        maxPolarAngle={Math.PI / 1.5}
-        minPolarAngle={Math.PI / 3}
-      />
+      {/* Orbit — rotation only, no zoom/pan. Disabled on mobile to prevent scroll blocking. */}
+      {!isMobile && (
+        <OrbitControls
+          ref={controlsRef}
+          makeDefault
+          enableZoom={false}
+          enablePan={false}
+          autoRotate
+          autoRotateSpeed={0.6}
+          maxPolarAngle={Math.PI / 1.5}
+          minPolarAngle={Math.PI / 3}
+        />
+      )}
     </>
   );
 }
@@ -165,18 +167,28 @@ function Scene() {
  * dynamic import in Hero.tsx
  * ───────────────────────────────────────────── */
 export default function KnowledgeCore() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   return (
     <Canvas
       camera={{ position: [0, 0, 4.5], fov: 40 }}
       gl={{
         alpha: true,
         antialias: true,
-        powerPreference: "high-performance",
+        powerPreference: isMobile ? "low-power" : "high-performance",
       }}
       style={{ background: "transparent", width: "100%", height: "100%" }}
-      dpr={[1, 2]}
+      dpr={isMobile ? [1, 1.5] : [1, 2]}
     >
-      <Scene />
+      <Scene isMobile={isMobile} />
     </Canvas>
   );
 }
