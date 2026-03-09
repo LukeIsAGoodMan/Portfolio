@@ -5,16 +5,19 @@ import { motion } from "framer-motion";
 import { use3DTilt } from "@/hooks/use3DTilt";
 import type { Project } from "@/data/projects";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ─────────────────────────────────────────────
  * MockupCard
  *
- * Typography-driven project card with no images.
+ * Typography-driven project card with optional
+ * background image (melt-into-paper effect).
  * Features:
  *  - Large display title text as visual hero
  *  - Glass shimmer that follows cursor on hover
  *  - Key metric badge
  *  - 3D tilt via use3DTilt hook
+ *  - Optional bg image with hover scale + blur
  * ───────────────────────────────────────────── */
 
 interface MockupCardProps {
@@ -108,10 +111,38 @@ export default function MockupCard({ project, className = "" }: MockupCardProps)
         }}
       />
 
+      {/* ── Optional background image with melt-into-paper ── */}
+      {project.image && (
+        <div className="absolute inset-0 z-0 overflow-hidden rounded-[32px]">
+          <Image
+            src={project.image}
+            alt=""
+            fill
+            className={`
+              object-cover melt-mask
+              transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]
+              ${isHovered ? "scale-[1.05]" : "scale-100"}
+            `}
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+          {/* Text-readability overlay — strengthens on hover */}
+          <div
+            className="absolute inset-0 transition-all duration-500"
+            style={{
+              background: isHovered
+                ? "linear-gradient(to top, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.55) 70%, rgba(255,255,255,0.2) 100%)"
+                : "linear-gradient(to top, rgba(255,255,255,0.88) 25%, rgba(255,255,255,0.45) 65%, rgba(255,255,255,0.15) 100%)",
+              backdropFilter: isHovered ? "blur(2px)" : "blur(0.5px)",
+              WebkitBackdropFilter: isHovered ? "blur(2px)" : "blur(0.5px)",
+            }}
+          />
+        </div>
+      )}
+
       {/* ── Hero typography area ── */}
       <div
         className={`
-          relative flex flex-col justify-between
+          relative z-[1] flex flex-col justify-between
           ${isLarge ? "p-10 min-h-[320px]" : isSmall ? "p-7 min-h-[220px]" : "p-8 min-h-[280px]"}
         `}
       >
@@ -172,7 +203,7 @@ export default function MockupCard({ project, className = "" }: MockupCardProps)
       </div>
 
       {/* ── Tags row ── */}
-      <div className="px-8 pb-6 flex flex-wrap gap-2">
+      <div className="relative z-[1] px-8 pb-6 flex flex-wrap gap-2">
         {project.tags.slice(0, isSmall ? 2 : 4).map((tag) => (
           <span
             key={tag}

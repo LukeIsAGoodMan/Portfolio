@@ -15,6 +15,8 @@ export interface Project {
   size?: "large" | "medium" | "small";
   /** Link to a case study page (if available) */
   caseStudy?: string;
+  /** Background image path (served from /public) */
+  image?: string;
 }
 
 export const projects: Project[] = [
@@ -32,6 +34,7 @@ export const projects: Project[] = [
     featured: true,
     size: "large",
     caseStudy: "/work/ta-onboarding",
+    image: "/photo5.png",
   },
   {
     slug: "scalable-digital-learning",
@@ -46,6 +49,7 @@ export const projects: Project[] = [
     tags: ["Canvas LMS", "Articulate Storyline 360", "Self-Paced", "500+ Learners"],
     featured: true,
     size: "medium",
+    image: "/photo7.png",
   },
   {
     slug: "k12-mandarin-curriculum",
@@ -74,6 +78,7 @@ export const projects: Project[] = [
     tags: ["Corporate L&D", "Standardization", "Best Practice"],
     featured: true,
     size: "small",
+    image: "/photo6.png",
   },
   {
     slug: "instructor-led-seminars",

@@ -2,17 +2,45 @@
 
 import Hero from "@/components/sections/Hero";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
+import { useRef } from "react";
 
 export default function Home() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
   return (
     <>
       <Hero />
 
       {/* Quick Preview CTA — bridge to /work */}
-      <section className="mx-auto max-w-[1200px] px-6 py-32 text-center">
-        <motion.div {...scrollRevealProps(0)}>
+      <section
+        ref={sectionRef}
+        className="relative mx-auto max-w-[1200px] px-6 py-32 text-center overflow-hidden"
+      >
+        {/* Background image — right-aligned on desktop, centered on mobile */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <motion.div
+            style={{ y: imageY }}
+            className="absolute inset-0 md:left-auto md:right-0 md:w-[55%]"
+          >
+            <Image
+              src="/photo1.png"
+              alt=""
+              fill
+              className="object-cover melt-mask opacity-[0.14] md:opacity-[0.18]"
+              sizes="(max-width: 768px) 100vw, 55vw"
+            />
+          </motion.div>
+        </div>
+
+        <motion.div {...scrollRevealProps(0)} className="relative z-[1]">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
             Portfolio
           </p>

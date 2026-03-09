@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
 import dynamic from "next/dynamic";
@@ -145,8 +146,19 @@ export default function TAOnboardingCaseStudy() {
       {/* ════════════════════════════════════════
          Section 3: The Process — LXD Mindset
          ════════════════════════════════════════ */}
-      <section className="mx-auto max-w-[900px] px-6 py-24">
-        <motion.div {...scrollRevealProps(0)} className="text-center mb-16">
+      <section className="relative mx-auto max-w-[900px] px-6 py-24 overflow-hidden">
+        {/* Solution backdrop — photo4 */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image
+            src="/photo4.png"
+            alt=""
+            fill
+            className="object-cover melt-mask opacity-[0.10] md:opacity-[0.14]"
+            sizes="900px"
+          />
+        </div>
+
+        <motion.div {...scrollRevealProps(0)} className="relative z-[1] text-center mb-16">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
             The Process
           </p>
@@ -155,7 +167,7 @@ export default function TAOnboardingCaseStudy() {
           </h2>
         </motion.div>
 
-        <div className="space-y-24">
+        <div className="relative z-[1] space-y-24">
           {processSections.map((section, i) => (
             <motion.div
               key={section.number}

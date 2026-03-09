@@ -217,30 +217,52 @@ export default function AboutPage() {
           </h2>
         </motion.div>
         <div className="space-y-12">
-          {education.map((item, i) => (
-            <motion.div
-              key={item.degree}
-              {...scrollRevealProps(i * 0.08)}
-              className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-8"
-            >
-              <div>
-                <p className="text-[12px] uppercase tracking-[0.12em] text-muted font-medium">
-                  {item.year} &middot; {item.location}
-                </p>
-                <p className="text-[14px] text-muted mt-1">
-                  {item.institution}
-                </p>
-              </div>
-              <div>
-                <p className="text-[16px] font-semibold tracking-[-0.02em] mb-2">
-                  {item.degree}
-                </p>
-                <p className="text-[14px] text-muted leading-[1.6]">
-                  {item.focus}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          {education.map((item, i) => {
+            const eduImage =
+              item.degree.includes("MBA") ? "/photo3.png"
+              : item.degree.includes("Linguistics") ? "/photo2.png"
+              : null;
+
+            return (
+              <motion.div
+                key={item.degree}
+                {...scrollRevealProps(i * 0.08)}
+                className="relative overflow-hidden rounded-2xl"
+              >
+                {/* Floating accent image — right edge */}
+                {eduImage && (
+                  <div className="absolute -right-4 top-0 bottom-0 w-[140px] md:w-[180px] pointer-events-none z-0">
+                    <Image
+                      src={eduImage}
+                      alt=""
+                      fill
+                      className="object-cover melt-mask opacity-[0.12] md:opacity-[0.18]"
+                      sizes="180px"
+                    />
+                  </div>
+                )}
+
+                <div className="relative z-[1] grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-8">
+                  <div>
+                    <p className="text-[12px] uppercase tracking-[0.12em] text-muted font-medium">
+                      {item.year} &middot; {item.location}
+                    </p>
+                    <p className="text-[14px] text-muted mt-1">
+                      {item.institution}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[16px] font-semibold tracking-[-0.02em] mb-2">
+                      {item.degree}
+                    </p>
+                    <p className="text-[14px] text-muted leading-[1.6]">
+                      {item.focus}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

@@ -70,6 +70,12 @@ body::after {
   }
 }
 
+/* ─── "Melt-into-paper" radial mask for gallery images ─── */
+.melt-mask {
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
 /* ─── Mobile-only 3D canvas edge feathering ─── */
 .canvas-feather {
   -webkit-mask-image: radial-gradient(circle, black 70%, transparent 100%);
