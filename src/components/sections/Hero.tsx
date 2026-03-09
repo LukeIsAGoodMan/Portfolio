@@ -73,45 +73,43 @@ export default function Hero() {
       {/* ── Text content — z-above the 3D element ── */}
       <motion.div
         style={{ opacity, y, scale }}
-        className="relative z-10 text-center max-w-[920px]"
+        className="relative z-10 text-center max-w-[920px] px-6"
       >
-        {/* Eyebrow */}
-        <motion.p
+        {/* H1 — Welcome headline */}
+        <motion.h1
           custom={0}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-[13px] uppercase tracking-[0.2em] text-muted mb-8 font-medium"
+          className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900"
         >
-          Learning Experience Designer
-        </motion.p>
+          Welcome to the Digital
+          <br />
+          Home of Zoey Wu.
+        </motion.h1>
 
-        {/* Headline */}
-        <motion.h1
+        {/* H2 — Sub-headline */}
+        <motion.h2
           custom={1}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-[clamp(2rem,6vw,6.5rem)] font-semibold tracking-[-0.05em] leading-[1.04] mb-8 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900"
+          className="text-xl md:text-3xl font-medium text-[#475569] mt-6 max-w-3xl mx-auto leading-[1.3] tracking-[-0.02em]"
         >
-          Designing experiences
-          <br />
-          that teach, inspire,
-          <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#86868b] via-[#6b7280] to-[#86868b]">and transform.</span>
-        </motion.h1>
+          A leading Learning Experience Designer bridging the gap between complexity and clarity.
+        </motion.h2>
 
-        {/* Subheadline */}
+        {/* P — Philosophy */}
         <motion.p
           custom={2}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-[17px] md:text-lg text-muted max-w-[540px] mx-auto leading-[1.6] mb-12"
+          className="text-base md:text-lg text-[#94a3b8] mt-8 leading-relaxed max-w-2xl mx-auto"
         >
-          I craft digital learning journeys where pedagogy meets
-          precision&mdash;blending cognitive science with world-class
-          interface design.
+          Where <em className="not-italic font-medium text-[#64748b]">pedagogy meets precision</em>&mdash;blending
+          cognitive science with world-class interface design to craft digital
+          journeys that teach, inspire, and transform.
         </motion.p>
 
         {/* CTA buttons */}
@@ -120,7 +118,7 @@ export default function Hero() {
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="flex items-center justify-center gap-4 flex-wrap"
+          className="flex items-center justify-center gap-4 flex-wrap mt-12"
         >
           <a
             href="/work"
