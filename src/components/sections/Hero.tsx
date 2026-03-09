@@ -73,48 +73,56 @@ export default function Hero() {
       {/* ── Text content — z-above the 3D element ── */}
       <motion.div
         style={{ opacity, y, scale }}
-        className="relative z-10 text-center max-w-[920px] px-6"
+        className="relative z-10 text-center max-w-[800px] px-6"
       >
-        {/* H1 — Welcome headline */}
+        {/* H1 — Identity anchor */}
         <motion.h1
           custom={0}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900"
+          className="text-7xl md:text-[10vw] font-extrabold tracking-tighter leading-[0.9] bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900"
         >
-          Welcome to the Digital
-          <br />
-          Home of Zoey Wu.
+          Zoey Wu.
         </motion.h1>
 
-        {/* H2 — Sub-headline */}
+        {/* H2 — Role */}
         <motion.h2
           custom={1}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-xl md:text-3xl font-medium text-[#475569] mt-6 max-w-3xl mx-auto leading-[1.3] tracking-[-0.02em]"
+          className="text-2xl md:text-4xl font-semibold text-[#1e293b] mt-2 tracking-[-0.03em]"
         >
-          A leading Learning Experience Designer bridging the gap between complexity and clarity.
+          Learning Experience Designer
         </motion.h2>
 
-        {/* P — Philosophy */}
-        <motion.p
+        {/* H3 — Value proposition */}
+        <motion.h3
           custom={2}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
-          className="text-base md:text-lg text-[#94a3b8] mt-8 leading-relaxed max-w-2xl mx-auto"
+          className="text-lg md:text-2xl font-medium mt-4 max-w-2xl mx-auto leading-[1.35] tracking-[-0.01em] bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-700 to-slate-900"
         >
-          Where <em className="not-italic font-medium text-[#64748b]">pedagogy meets precision</em>&mdash;blending
-          cognitive science with world-class interface design to craft digital
-          journeys that teach, inspire, and transform.
+          Bridging the gap between complexity and clarity.
+        </motion.h3>
+
+        {/* P — Philosophy */}
+        <motion.p
+          custom={3}
+          variants={lineVariants}
+          initial="hidden"
+          animate="visible"
+          className="text-base md:text-lg text-[#64748b] mt-6 leading-relaxed max-w-xl mx-auto"
+        >
+          Where pedagogy meets precision&mdash;blending cognitive science
+          with interface design to transform how people learn.
         </motion.p>
 
         {/* CTA buttons */}
         <motion.div
-          custom={3}
+          custom={4}
           variants={lineVariants}
           initial="hidden"
           animate="visible"
