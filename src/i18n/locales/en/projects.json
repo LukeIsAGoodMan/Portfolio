@@ -1,0 +1,58 @@
+{
+  "ta-onboarding-program": {
+    "title": "TA Onboarding Mini-Course",
+    "displayTitle": "Standardize.\nScale.\nRepeat.",
+    "stat": "30 hrs saved / semester",
+    "category": "Instructional Design",
+    "description": "Created a standardized onboarding program that reduced variability across the teaching team, improved instructional consistency, and enabled scalable, repeatable training delivery.",
+    "tags": ["Onboarding", "Standardization", "LMS", "Repeatable Training"]
+  },
+  "scalable-digital-learning": {
+    "title": "Self-Paced Digital Learning System",
+    "displayTitle": "500 Learners.\nOne Platform.",
+    "stat": "500+ learners / semester",
+    "category": "Scalable Delivery",
+    "description": "Designed and built self-paced digital learning experiences using Canvas LMS and Articulate Storyline 360, enabling scalable online training for approximately 500 learners per semester.",
+    "tags": ["Canvas LMS", "Articulate Storyline 360", "Self-Paced", "500+ Learners"]
+  },
+  "k12-mandarin-curriculum": {
+    "title": "Global Mandarin Framework",
+    "displayTitle": "Bridge\nLanguages.\nBridge Worlds.",
+    "stat": "K–12 · 3 Countries",
+    "category": "Curriculum Design",
+    "description": "Designed semester-based Mandarin curricula grounded in second language acquisition theory for English-speaking learners, supporting ~100 students with iterative, outcomes-based design.",
+    "tags": ["K–12", "SLA Theory", "Assessment", "Iterative Design"]
+  },
+  "corporate-training-system": {
+    "title": "Corporate Authority System",
+    "displayTitle": "Best Internal\nReference.",
+    "stat": "30K views / post",
+    "category": "Channel Development",
+    "description": "Designed internal employee training materials to standardize social media operations and content practices at China Telecom Americas, recognized as best internal reference across the team.",
+    "tags": ["Corporate L&D", "Standardization", "Best Practice"]
+  },
+  "instructor-led-seminars": {
+    "title": "The LXD Playbook",
+    "displayTitle": "Design for\nthe Room.",
+    "stat": "80 learners / session",
+    "category": "Philosophy",
+    "description": "Facilitated instructor-led seminars for cohorts of ~80 learners per session, designing interactive discussions and application activities aligned with course objectives.",
+    "tags": ["ILT", "80 Learners/Session", "Discussion Design", "Blended"]
+  },
+  "id-project-lab": {
+    "title": "ID Project Lab",
+    "displayTitle": "Learn by\nDesigning.",
+    "stat": "Cohort-based",
+    "category": "Professional Development",
+    "description": "Cohort-based lab focused on hands-on project development aligned with industry learning design standards, applying ID principles to needs analysis, strategy selection, and iterative improvement.",
+    "tags": ["Devlin Peck", "Needs Analysis", "Industry ID"]
+  },
+  "autism-caregiver-training": {
+    "title": "Caregiver Awareness Training",
+    "displayTitle": "",
+    "stat": "",
+    "category": "Training Design",
+    "description": "Developed an introductory training module outlining key considerations for interacting with children with autism, supporting basic caregiver awareness and safe practice.",
+    "tags": ["Sensitive Content", "Caregiver Training", "Volunteer"]
+  }
+}

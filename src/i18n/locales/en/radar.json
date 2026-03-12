@@ -1,0 +1,7 @@
+{
+  "axes": ["Grading", "Facilitation", "Tech", "Admin"],
+  "badgeBefore": "High Variability",
+  "badgeAfter": "High Consistency",
+  "buttonStandardize": "Standardize",
+  "buttonReset": "Reset to Before"
+}

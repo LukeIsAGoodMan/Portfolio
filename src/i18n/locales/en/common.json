@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "about": "About",
+    "logo": "LXD",
+    "openNav": "Open navigation",
+    "closeNav": "Close navigation"
+  },
+  "footer": {
+    "philosophy_line1": "DESIGN IS",
+    "philosophy_line2": "NOT",
+    "philosophy_line3": "DECORATION.",
+    "tagline": "LXD Practitioner · MBA (UAlberta) · MSc (Glasgow)",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "resume": "Resume",
+    "copyright": "© {{year}} LXD Portfolio"
+  },
+  "viewCaseStudy": "View Case Study",
+  "scroll": "Scroll",
+  "backToProjects": "Back to All Projects",
+  "allProjects": "All Projects"
+}

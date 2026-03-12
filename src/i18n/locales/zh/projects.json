@@ -1,0 +1,58 @@
+{
+  "ta-onboarding-program": {
+    "title": "助教入职迷你课程",
+    "displayTitle": "标准化。\n规模化。\n可复制。",
+    "stat": "每学期节省30小时",
+    "category": "教学设计",
+    "description": "创建了一套标准化入职培训体系，减少了教学团队间的差异性，提高了教学一致性，实现了可规模化、可复制的培训交付。",
+    "tags": ["入职培训", "标准化", "LMS", "可复制培训"]
+  },
+  "scalable-digital-learning": {
+    "title": "自主学习数字化系统",
+    "displayTitle": "500名学习者。\n一个平台。",
+    "stat": "每学期500+学习者",
+    "category": "规模化交付",
+    "description": "利用Canvas LMS和Articulate Storyline 360设计并构建了自主学习数字化体验，为每学期约500名学习者提供可规模化的在线培训。",
+    "tags": ["Canvas LMS", "Articulate Storyline 360", "自主学习", "500+学习者"]
+  },
+  "k12-mandarin-curriculum": {
+    "title": "全球中文教学框架",
+    "displayTitle": "连接\n语言。\n连接世界。",
+    "stat": "K-12 · 3个国家",
+    "category": "课程设计",
+    "description": "基于第二语言习得理论，为英语母语学习者设计了学期制中文课程，以迭代式、成果导向的设计支持约100名学生。",
+    "tags": ["K-12", "二语习得理论", "测评设计", "迭代设计"]
+  },
+  "corporate-training-system": {
+    "title": "企业培训体系",
+    "displayTitle": "最佳内部\n参考资料。",
+    "stat": "单篇3万+阅读",
+    "category": "渠道开发",
+    "description": "为中国电信美洲公司设计内部员工培训材料，标准化社交媒体运营和内容实践，被评为团队最佳内部参考资料。",
+    "tags": ["企业学习与发展", "标准化", "最佳实践"]
+  },
+  "instructor-led-seminars": {
+    "title": "LXD实践手册",
+    "displayTitle": "为课堂\n而设计。",
+    "stat": "每场80名学习者",
+    "category": "设计理念",
+    "description": "为每场约80名学习者的研讨班设计并主持互动讨论和应用活动，与课程目标紧密对齐。",
+    "tags": ["面授培训", "80人/场", "讨论设计", "混合式"]
+  },
+  "id-project-lab": {
+    "title": "教学设计项目实验室",
+    "displayTitle": "以设计\n促学习。",
+    "stat": "队列制",
+    "category": "专业发展",
+    "description": "基于队列的实践工作坊，专注于符合行业学习设计标准的项目开发，将教学设计原则应用于需求分析、策略选择和迭代改进。",
+    "tags": ["Devlin Peck", "需求分析", "行业教学设计"]
+  },
+  "autism-caregiver-training": {
+    "title": "照护者意识培训",
+    "displayTitle": "",
+    "stat": "",
+    "category": "培训设计",
+    "description": "开发了一个入门培训模块，概述与自闭症儿童互动的关键注意事项，支持照护者基础意识和安全实践。",
+    "tags": ["敏感内容", "照护者培训", "志愿服务"]
+  }
+}

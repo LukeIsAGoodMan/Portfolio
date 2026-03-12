@@ -1,0 +1,56 @@
+{
+  "backLink": "All Projects",
+  "label": "Case Study",
+  "title_line1": "Standardizing Excellence:",
+  "title_line2": "The New TA Onboarding System",
+  "subtitle": "Reducing variability and scaling delivery for 500+ learners per semester.",
+  "meta": [
+    { "label": "Role", "value": "Lead LXD" },
+    { "label": "Tools", "value": "Storyline 360, Canvas" },
+    { "label": "Methodology", "value": "Backward Design" }
+  ],
+  "problem": {
+    "label": "The Problem",
+    "heading": "Every TA was teaching differently.",
+    "description": "Without standardized onboarding, quality varied wildly across grading consistency, facilitation style, technology use, and administrative compliance."
+  },
+  "process": {
+    "label": "The Process",
+    "heading": "The LXD Mindset",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Backward Design",
+        "subtitle": "Starting from the business goal, not the content.",
+        "body": [
+          "The first question wasn\u2019t \u201CWhat should TAs learn?\u201D but \u201CWhat does a consistently excellent seminar look like?\u201D By starting from the desired performance outcome\u2014standardized facilitation quality across all sections\u2014I reverse-engineered the curriculum.",
+          "Each module maps directly to a measurable behavioral objective: grading calibration, discussion facilitation techniques, LMS navigation, and administrative protocols. Nothing exists in the course that doesn\u2019t trace back to an observed performance gap."
+        ]
+      },
+      {
+        "number": "02",
+        "title": "Cognitive Load Management",
+        "subtitle": "Applying the Segmenting Principle to reduce overload.",
+        "body": [
+          "New TAs face an overwhelming amount of information in their first week\u2014policies, tools, pedagogy, logistics. Dumping it all into a single orientation session guarantees cognitive overload and near-zero retention.",
+          "I applied Mayer\u2019s Segmenting Principle: complex material is broken into learner-paced segments, each focused on one skill domain. TAs complete 10\u201315 minute modules across their first two weeks, with knowledge checks gating progression. This approach respects working memory limits while building durable understanding."
+        ]
+      },
+      {
+        "number": "03",
+        "title": "Interactive Simulations",
+        "subtitle": "A safe-to-fail environment built in Storyline 360.",
+        "body": [
+          "Reading about how to handle a difficult grading dispute is fundamentally different from experiencing one. I built branching scenario simulations in Articulate Storyline 360 where TAs navigate realistic classroom situations\u2014a student contesting a grade, a disengaged cohort, a time-overrun seminar.",
+          "Each branch leads to different outcomes with immediate, contextual feedback. The simulation creates a psychologically safe space to make mistakes before the stakes are real. Post-completion analytics showed 94% of TAs replayed at least one scenario to explore alternative approaches\u2014exactly the reflective practice the design intended."
+        ]
+      }
+    ]
+  },
+  "impact": {
+    "label": "The Impact",
+    "heading": "Measurable outcomes.",
+    "description": "The standardized onboarding system transformed TA readiness from the first semester of deployment."
+  },
+  "footerCta": "Back to All Projects"
+}

@@ -1,0 +1,19 @@
+{
+  "stats": [
+    {
+      "suffix": " Hours Saved/Sem",
+      "label": "30 Hours Saved/Sem",
+      "description": "Eliminated redundant orientation sessions through standardized self-paced modules."
+    },
+    {
+      "suffix": "% FAQ Reduction",
+      "label": "50% FAQ Reduction",
+      "description": "Proactive training addressed common questions before they were ever asked."
+    },
+    {
+      "suffix": "% TA Confidence",
+      "label": "90% TA Confidence",
+      "description": "Post-training survey showed TAs felt prepared to handle their first session."
+    }
+  ]
+}

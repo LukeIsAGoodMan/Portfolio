@@ -1,0 +1,108 @@
+{
+  "sectionHeadings": {
+    "about": "About",
+    "coreCompetencies": "Core Competencies",
+    "competenciesSubtitle": "Instructional Design · Scalable Delivery",
+    "experience": "Professional Experience",
+    "education": "Education",
+    "profDev": "Professional Development",
+    "tools": "Tools & Technology",
+    "awards": "Awards"
+  },
+  "profile": {
+    "title": "Learning Experience Designer",
+    "location": "Edmonton, AB",
+    "headline": "Instructional design practitioner specializing in scalable learning delivery and structured program design.",
+    "summary": [
+      "Learning design practitioner with a solid instructional design foundation, experienced in designing, standardizing, and maintaining structured learning programs aligned with learning outcomes and organizational needs.",
+      "Hands-on experience selecting and applying appropriate learning modalities—including self-paced digital learning and instructor-led training—supporting scalable delivery for up to 500 learners per semester.",
+      "Collaborative partner with experience working across instructors, program leads, and organizational stakeholders to identify learning needs and support effective learning delivery."
+    ]
+  },
+  "stats": [
+    { "value": "500+", "label": "Learners per semester" },
+    { "value": "3", "label": "Countries lived & worked" },
+    { "value": "3", "label": "Languages spoken" },
+    { "value": "2", "label": "Master's degrees" }
+  ],
+  "education": [
+    {
+      "degree": "Master of Business Administration (MBA)",
+      "focus": "Business operations, performance metrics, organizational decision contexts, marketing and customer experience principles for clear, effective communication."
+    },
+    {
+      "degree": "MSc Applied Linguistics",
+      "focus": "Learning research methods, data-informed analysis, discourse and communication analysis to improve clarity, engagement, and comprehension."
+    },
+    {
+      "degree": "BA Chinese Language Education",
+      "focus": "Curriculum design, instructional planning, assessment, educational psychology, and learner needs analysis aligned with diverse learner outcomes."
+    }
+  ],
+  "experience": [
+    {
+      "period": "Aug 2025 — Present",
+      "role": "Teaching Assistant",
+      "highlights": [
+        "Designed and built self-paced digital learning experiences using Canvas (LMS) and Articulate Storyline 360, enabling scalable online training for ~500 learners per semester.",
+        "Facilitated instructor-led seminars for cohorts of ~80 learners per session, guiding application of course concepts through interactive discussions and activities.",
+        "Designed a standardized New TA onboarding mini-course that reduced onboarding variability and enabled scalable, repeatable training delivery.",
+        "Collaborated with instructors, coordinators, and academic partners to align stakeholder expectations and continuously improve learning quality."
+      ]
+    },
+    {
+      "period": "Apr 2025 — Jan 2026",
+      "role": "Channel Business Development Intern",
+      "highlights": [
+        "Created and analyzed social media content on WeChat and Red Book, with individual posts reaching up to 30,000 views and supporting lead generation.",
+        "Designed internal employee training and reference materials to standardize operations, earning recognition as a best internal reference.",
+        "Developed offline channel partnerships through collaboration with student associations, enabling new customer touchpoints."
+      ]
+    },
+    {
+      "period": "Aug 2022 — Dec 2023",
+      "role": "Mandarin Teacher",
+      "highlights": [
+        "Designed semester-based Mandarin curricula grounded in SLA theory for K–12 English-speaking learners, supporting ~100 students with iterative, outcomes-based design.",
+        "Built reusable instructional templates and digital learning solutions, incorporating structured interactive activities to support scalable delivery.",
+        "Partnered with school leadership, subject leads, and parents to align curriculum design and ensure consistent learning experiences."
+      ]
+    }
+  ],
+  "volunteerExperience": [
+    {
+      "period": "Apr 2024 — Jun 2024",
+      "role": "Training Program Designer",
+      "highlights": [
+        "Developed an introductory training module on key considerations for interacting with children with autism, supporting caregiver awareness and safe practice."
+      ]
+    }
+  ],
+  "professionalDevelopment": [
+    {
+      "title": "Instructional Design Project Lab",
+      "detail": "Cohort-based lab led by Devlin Peck, focused on hands-on project development aligned with industry learning design standards. Applied ID principles to needs analysis, strategy selection, and iterative improvement through expert feedback."
+    }
+  ],
+  "coreCompetencies": [
+    "Instructional Design",
+    "Scalable Delivery",
+    "Curriculum Architecture",
+    "Learning Needs Analysis",
+    "Assessment Design",
+    "Self-Paced E-Learning",
+    "Instructor-Led Training",
+    "Stakeholder Collaboration"
+  ],
+  "tools": [
+    "Canvas (LMS)",
+    "Articulate Storyline 360",
+    "Interactive Quizzes & Polling",
+    "Canva",
+    "Video Editing"
+  ],
+  "awards": [
+    { "title": "Entry Awards Scholarship", "org": "University of Alberta School of Business" },
+    { "title": "First-Class Academic Scholarship", "org": "Southwest University" }
+  ]
+}

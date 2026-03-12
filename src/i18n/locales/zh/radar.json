@@ -1,0 +1,7 @@
+{
+  "axes": ["评分", "教学引导", "技术", "行政"],
+  "badgeBefore": "高差异性",
+  "badgeAfter": "高一致性",
+  "buttonStandardize": "标准化",
+  "buttonReset": "恢复到之前"
+}

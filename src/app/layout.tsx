@@ -4,6 +4,7 @@ import Navigation from "@/components/layout/Navigation";
 import MagneticCursor from "@/components/layout/MagneticCursor";
 import PageTransition from "@/components/layout/PageTransition";
 import Footer from "@/components/layout/Footer";
+import I18nProvider from "@/components/I18nProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,13 +37,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation />
-        <MagneticCursor />
-        <main>
-          <PageTransition>{children}</PageTransition>
-        </main>
-
-        <Footer />
+        <I18nProvider>
+          <Navigation />
+          <MagneticCursor />
+          <main>
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

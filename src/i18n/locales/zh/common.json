@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "首页",
+    "work": "作品",
+    "about": "关于",
+    "logo": "LXD",
+    "openNav": "打开导航",
+    "closeNav": "关闭导航"
+  },
+  "footer": {
+    "philosophy_line1": "设计不是",
+    "philosophy_line2": "装饰",
+    "philosophy_line3": "而是方法。",
+    "tagline": "学习体验设计师 · MBA（阿尔伯塔大学） · 理学硕士（格拉斯哥大学）",
+    "linkedin": "LinkedIn",
+    "email": "邮箱",
+    "resume": "简历",
+    "copyright": "© {{year}} LXD 作品集"
+  },
+  "viewCaseStudy": "查看案例分析",
+  "scroll": "下滑",
+  "backToProjects": "返回所有项目",
+  "allProjects": "所有项目"
+}
