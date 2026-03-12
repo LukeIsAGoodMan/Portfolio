@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
 import dynamic from "next/dynamic";
 
@@ -14,45 +15,21 @@ const ImpactStats = dynamic(
   { ssr: false },
 );
 
-/* ─── Metadata chips for the header ─── */
-const meta = [
-  { label: "Role", value: "Lead LXD" },
-  { label: "Tools", value: "Storyline 360, Canvas" },
-  { label: "Methodology", value: "Backward Design" },
-];
-
-/* ─── Process sections content ─── */
-const processSections = [
-  {
-    number: "01",
-    title: "Backward Design",
-    subtitle: "Starting from the business goal, not the content.",
-    body: [
-      "The first question wasn\u2019t \u201CWhat should TAs learn?\u201D but \u201CWhat does a consistently excellent seminar look like?\u201D By starting from the desired performance outcome\u2014standardized facilitation quality across all sections\u2014I reverse-engineered the curriculum.",
-      "Each module maps directly to a measurable behavioral objective: grading calibration, discussion facilitation techniques, LMS navigation, and administrative protocols. Nothing exists in the course that doesn\u2019t trace back to an observed performance gap.",
-    ],
-  },
-  {
-    number: "02",
-    title: "Cognitive Load Management",
-    subtitle: "Applying the Segmenting Principle to reduce overload.",
-    body: [
-      "New TAs face an overwhelming amount of information in their first week\u2014policies, tools, pedagogy, logistics. Dumping it all into a single orientation session guarantees cognitive overload and near-zero retention.",
-      "I applied Mayer\u2019s Segmenting Principle: complex material is broken into learner-paced segments, each focused on one skill domain. TAs complete 10\u201315 minute modules across their first two weeks, with knowledge checks gating progression. This approach respects working memory limits while building durable understanding.",
-    ],
-  },
-  {
-    number: "03",
-    title: "Interactive Simulations",
-    subtitle: "A safe-to-fail environment built in Storyline 360.",
-    body: [
-      "Reading about how to handle a difficult grading dispute is fundamentally different from experiencing one. I built branching scenario simulations in Articulate Storyline 360 where TAs navigate realistic classroom situations\u2014a student contesting a grade, a disengaged cohort, a time-overrun seminar.",
-      "Each branch leads to different outcomes with immediate, contextual feedback. The simulation creates a psychologically safe space to make mistakes before the stakes are real. Post-completion analytics showed 94% of TAs replayed at least one scenario to explore alternative approaches\u2014exactly the reflective practice the design intended.",
-    ],
-  },
-];
-
 export default function TAOnboardingCaseStudy() {
+  const { t } = useTranslation("caseStudy");
+
+  const meta = t("meta", { returnObjects: true }) as Array<{
+    label: string;
+    value: string;
+  }>;
+
+  const processSteps = t("process.steps", { returnObjects: true }) as Array<{
+    number: string;
+    title: string;
+    subtitle: string;
+    body: string[];
+  }>;
+
   return (
     <div className="pt-28 pb-32">
       {/* ════════════════════════════════════════
@@ -67,23 +44,22 @@ export default function TAOnboardingCaseStudy() {
             className="inline-flex items-center gap-1.5 text-[13px] text-muted font-medium tracking-[0.01em] transition-colors hover:text-foreground"
           >
             <span aria-hidden="true">&larr;</span>
-            All Projects
+            {t("backLink")}
           </a>
         </motion.div>
 
         {/* Headline */}
         <motion.div {...scrollRevealProps(0.05)} className="text-center mb-10">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-5 font-medium">
-            Case Study
+            {t("label")}
           </p>
           <h1 className="text-[clamp(2rem,5vw,3.2rem)] font-semibold tracking-[-0.05em] leading-[1.08] mb-5">
-            Standardizing Excellence:
+            {t("title_line1")}
             <br />
-            The New TA Onboarding System
+            {t("title_line2")}
           </h1>
           <p className="text-lg text-muted max-w-[560px] mx-auto leading-[1.6]">
-            Reducing variability and scaling delivery for 500+ learners
-            per semester.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -92,9 +68,9 @@ export default function TAOnboardingCaseStudy() {
           {...scrollRevealProps(0.15)}
           className="flex flex-wrap justify-center gap-3"
         >
-          {meta.map((m) => (
+          {meta.map((m, i) => (
             <span
-              key={m.label}
+              key={i}
               className="
                 inline-flex items-center gap-1.5
                 px-4 py-2
@@ -121,15 +97,13 @@ export default function TAOnboardingCaseStudy() {
       <section className="mx-auto max-w-[900px] px-6 py-24">
         <motion.div {...scrollRevealProps(0)} className="text-center mb-4">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-            The Problem
+            {t("problem.label")}
           </p>
           <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12] mb-4">
-            Every TA was teaching differently.
+            {t("problem.heading")}
           </h2>
           <p className="text-[15px] text-muted max-w-[520px] mx-auto leading-[1.6] mb-12">
-            Without standardized onboarding, quality varied wildly across
-            grading consistency, facilitation style, technology use, and
-            administrative compliance.
+            {t("problem.description")}
           </p>
         </motion.div>
 
@@ -160,15 +134,15 @@ export default function TAOnboardingCaseStudy() {
 
         <motion.div {...scrollRevealProps(0)} className="relative z-[1] text-center mb-16">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-            The Process
+            {t("process.label")}
           </p>
           <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12]">
-            The LXD Mindset
+            {t("process.heading")}
           </h2>
         </motion.div>
 
         <div className="relative z-[1] space-y-24">
-          {processSections.map((section, i) => (
+          {processSteps.map((section, i) => (
             <motion.div
               key={section.number}
               {...scrollRevealProps(i * 0.06)}
@@ -216,14 +190,13 @@ export default function TAOnboardingCaseStudy() {
       <section className="mx-auto max-w-[900px] px-6 py-24">
         <motion.div {...scrollRevealProps(0)} className="text-center mb-14">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-            The Impact
+            {t("impact.label")}
           </p>
           <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12] mb-4">
-            Measurable outcomes.
+            {t("impact.heading")}
           </h2>
           <p className="text-[15px] text-muted max-w-[480px] mx-auto leading-[1.6]">
-            The standardized onboarding system transformed TA readiness from
-            the first semester of deployment.
+            {t("impact.description")}
           </p>
         </motion.div>
 
@@ -248,7 +221,7 @@ export default function TAOnboardingCaseStudy() {
             "
           >
             <span aria-hidden="true">&larr;</span>
-            Back to All Projects
+            {t("footerCta")}
           </a>
         </motion.div>
       </section>

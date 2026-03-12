@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import MockupCard from "@/components/ui/MockupCard";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
-import { projects } from "@/data/projects";
+import { useProjects } from "@/data/useProjects";
 
 /* ─────────────────────────────────────────────
  * FeaturedWork
@@ -19,6 +20,8 @@ function gridSpan(size?: string): string {
 }
 
 export default function FeaturedWork() {
+  const { t } = useTranslation("work");
+  const projects = useProjects();
   const featured = projects.filter((p) => p.featured);
 
   return (
@@ -26,12 +29,12 @@ export default function FeaturedWork() {
       {/* Section header */}
       <motion.div {...scrollRevealProps(0)} className="mb-16">
         <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-          Featured Work
+          {t("label")}
         </p>
         <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold tracking-[-0.05em] leading-[1.08]">
-          Selected projects that
+          {t("heading_line1")}
           <br />
-          shaped how people learn.
+          {t("heading_line2")}
         </h2>
       </motion.div>
 

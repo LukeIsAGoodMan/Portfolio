@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 /* ─────────────────────────────────────────────
  * ImpactStats
@@ -43,29 +44,8 @@ const ShieldIcon = () => (
   </svg>
 );
 
-const STATS: Stat[] = [
-  {
-    icon: <ClockIcon />,
-    value: 30,
-    suffix: " Hours Saved/Sem",
-    label: "30 Hours Saved/Sem",
-    description: "Eliminated redundant orientation sessions through standardized self-paced modules.",
-  },
-  {
-    icon: <MessageIcon />,
-    value: 50,
-    suffix: "% FAQ Reduction",
-    label: "50% FAQ Reduction",
-    description: "Proactive training addressed common questions before they were ever asked.",
-  },
-  {
-    icon: <ShieldIcon />,
-    value: 90,
-    suffix: "% TA Confidence",
-    label: "90% TA Confidence",
-    description: "Post-training survey showed TAs felt prepared to handle their first session.",
-  },
-];
+const STAT_ICONS = [<ClockIcon />, <MessageIcon />, <ShieldIcon />];
+const STAT_VALUES = [30, 50, 90];
 
 /* ── Animated counter hook ── */
 function useCountUp(target: number, trigger: boolean, duration = 1200) {
@@ -145,10 +125,25 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
 
 /* ── Main component ── */
 export default function ImpactStats() {
+  const { t } = useTranslation("impact");
+  const translatedStats = t("stats", { returnObjects: true }) as Array<{
+    suffix: string;
+    label: string;
+    description: string;
+  }>;
+
+  const stats: Stat[] = translatedStats.map((ts, i) => ({
+    icon: STAT_ICONS[i],
+    value: STAT_VALUES[i],
+    suffix: ts.suffix,
+    label: ts.label,
+    description: ts.description,
+  }));
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {STATS.map((stat, i) => (
-        <StatCard key={stat.label} stat={stat} index={i} />
+      {stats.map((stat, i) => (
+        <StatCard key={i} stat={stat} index={i} />
       ))}
     </div>
   );

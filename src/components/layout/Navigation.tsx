@@ -4,14 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useJellyStretch } from "@/hooks/useJellyStretch";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-/* ─── Nav links ─── */
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
+/* ─── Nav link definitions (keys only) ─── */
+const navLinkDefs = [
+  { href: "/", key: "home" },
+  { href: "/work", key: "work" },
+  { href: "/about", key: "about" },
 ];
 
 const EASE_EXPO = [0.23, 1, 0.32, 1] as const;
@@ -57,9 +58,11 @@ function NavLink({
 
 /* ─── Main Navigation ─── */
 export default function Navigation() {
+  const { t } = useTranslation("common");
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navLinks = navLinkDefs.map((d) => ({ href: d.href, label: t(`nav.${d.key}`) }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -125,7 +128,7 @@ export default function Navigation() {
           <button
             className="md:hidden flex flex-col justify-center gap-[5px] w-[44px] h-[44px] items-center -mr-2"
             onClick={() => setMenuOpen(true)}
-            aria-label="Open navigation"
+            aria-label={t("nav.openNav")}
           >
             <span className="block h-[1.5px] w-4 bg-foreground" />
             <span className="block h-[1.5px] w-4 bg-foreground" />
@@ -165,7 +168,7 @@ export default function Navigation() {
 
               <button
                 onClick={() => setMenuOpen(false)}
-                aria-label="Close navigation"
+                aria-label={t("nav.closeNav")}
                 className="w-[44px] h-[44px] flex items-center justify-center -mr-2"
               >
                 <svg

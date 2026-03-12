@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
 
 /* ─────────────────────────────────────────────
@@ -10,25 +11,15 @@ import { scrollRevealProps } from "@/hooks/scrollReveal";
  * tagline, minimal functional links, copyright.
  * ───────────────────────────────────────────── */
 
-const links = [
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/zheyu-wu",
-    external: true,
-  },
-  {
-    label: "Email",
-    href: "mailto:zheyu8@ualberta.ca",
-    external: false,
-  },
-  {
-    label: "Resume",
-    href: "/about",
-    external: false,
-  },
+const linkDefs = [
+  { key: "linkedin", href: "https://linkedin.com/in/zheyu-wu", external: true },
+  { key: "email", href: "mailto:zheyu8@ualberta.ca", external: false },
+  { key: "resume", href: "/about", external: false },
 ];
 
 export default function Footer() {
+  const { t } = useTranslation("common");
+
   return (
     <footer className="pt-32 md:pt-48 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))]">
       <div className="mx-auto max-w-[1200px] px-6">
@@ -44,11 +35,11 @@ export default function Footer() {
               break-words
             "
           >
-            DESIGN IS
+            {t("footer.philosophy_line1")}
             <br />
-            NOT
+            {t("footer.philosophy_line2")}
             <br />
-            DECORATION.
+            {t("footer.philosophy_line3")}
           </h2>
         </motion.div>
 
@@ -57,7 +48,7 @@ export default function Footer() {
           {...scrollRevealProps(0.08)}
           className="text-xs md:text-sm tracking-[0.2em] uppercase text-[#86868b] mt-4"
         >
-          LXD Practitioner &bull; MBA (UAlberta) &bull; MSc (Glasgow)
+          {t("footer.tagline")}
         </motion.p>
 
         {/* ── Functional links ── */}
@@ -65,9 +56,9 @@ export default function Footer() {
           {...scrollRevealProps(0.14)}
           className="flex gap-8 mt-12"
         >
-          {links.map((link) => (
+          {linkDefs.map((link) => (
             <a
-              key={link.label}
+              key={link.key}
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
@@ -80,7 +71,7 @@ export default function Footer() {
                 flex items-center
               "
             >
-              {link.label}
+              {t(`footer.${link.key}`)}
             </a>
           ))}
         </motion.div>
@@ -88,7 +79,7 @@ export default function Footer() {
         {/* ── Divider + copyright ── */}
         <div className="border-t border-[#e5e7eb] mt-16 pt-6 pb-4">
           <p className="text-[12px] text-[#86868b]/60 tracking-[0.04em]">
-            &copy; {new Date().getFullYear()} LXD Portfolio
+            {t("footer.copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

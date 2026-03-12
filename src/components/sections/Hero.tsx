@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import dynamic from "next/dynamic";
 
 /**
@@ -33,6 +34,7 @@ const lineVariants = {
 };
 
 export default function Hero() {
+  const { t } = useTranslation("hero");
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -94,7 +96,7 @@ export default function Hero() {
           animate="visible"
           className="text-2xl md:text-4xl font-semibold text-[#1e293b] mt-2 tracking-[-0.03em]"
         >
-          Learning Experience Designer
+          {t("role")}
         </motion.h2>
 
         {/* H3 — Value proposition */}
@@ -105,7 +107,7 @@ export default function Hero() {
           animate="visible"
           className="text-lg md:text-2xl font-medium mt-4 max-w-2xl mx-auto leading-[1.5] tracking-[-0.01em] bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-700 to-slate-900"
         >
-          Bridging the gap between complexity and clarity.
+          {t("value")}
         </motion.h3>
 
         {/* P — Philosophy */}
@@ -116,8 +118,7 @@ export default function Hero() {
           animate="visible"
           className="text-base md:text-lg text-[#64748b] mt-6 leading-relaxed max-w-xl mx-auto"
         >
-          Where pedagogy meets precision&mdash;blending cognitive science
-          with interface design to transform how people learn.
+          {t("philosophy")}
         </motion.p>
 
         {/* CTA buttons */}
@@ -141,7 +142,7 @@ export default function Hero() {
               active:scale-[0.98]
             "
           >
-            View Selected Work
+            {t("ctaWork")}
           </a>
           <a
             href="/about"
@@ -155,7 +156,7 @@ export default function Hero() {
               hover:border-foreground hover:text-foreground
             "
           >
-            About Me
+            {t("ctaAbout")}
           </a>
         </motion.div>
       </motion.div>
@@ -168,7 +169,7 @@ export default function Hero() {
         className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
       >
         <span className="text-[11px] uppercase tracking-[0.15em] text-muted/50 font-medium">
-          Scroll
+          {t("scroll", { ns: "common" })}
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}

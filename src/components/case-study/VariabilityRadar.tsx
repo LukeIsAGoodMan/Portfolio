@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 /* ─────────────────────────────────────────────
  * VariabilityRadar
@@ -14,8 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
  * Toggle via "Standardize" / "Reset" button.
  * ───────────────────────────────────────────── */
 
-const AXES = ["Grading", "Facilitation", "Tech", "Admin"] as const;
-const AXIS_COUNT = AXES.length;
+const AXIS_COUNT = 4;
 
 // 0-1 scale: how far out each axis reaches
 const BEFORE_VALUES = [0.9, 0.45, 0.3, 0.75]; // jagged
@@ -51,6 +51,8 @@ function buildPolygonPath(values: number[]): string {
 const EASE_EXPO = [0.23, 1, 0.32, 1] as [number, number, number, number];
 
 export default function VariabilityRadar() {
+  const { t } = useTranslation("radar");
+  const axes = t("axes", { returnObjects: true }) as string[];
   const [standardized, setStandardized] = useState(false);
   const values = standardized ? AFTER_VALUES : BEFORE_VALUES;
 
@@ -81,12 +83,12 @@ export default function VariabilityRadar() {
           ))}
 
           {/* Axis lines + labels */}
-          {AXES.map((label, i) => {
+          {axes.map((label, i) => {
             const angle = i * axisStep;
             const end = polarToCartesian(angle, RADIUS + 2);
             const labelPos = polarToCartesian(angle, RADIUS + 20);
             return (
-              <g key={label}>
+              <g key={i}>
                 <line
                   x1={CENTER}
                   y1={CENTER}
@@ -155,7 +157,7 @@ export default function VariabilityRadar() {
               }
             `}
           >
-            {standardized ? "High Consistency" : "High Variability"}
+            {standardized ? t("badgeAfter") : t("badgeBefore")}
           </motion.span>
         </AnimatePresence>
       </div>
@@ -173,7 +175,7 @@ export default function VariabilityRadar() {
           hover:scale-[1.04] active:scale-[0.98]
         "
       >
-        {standardized ? "Reset to Before" : "Standardize"}
+        {standardized ? t("buttonReset") : t("buttonStandardize")}
         <span className="text-[15px]" aria-hidden="true">
           {standardized ? "\u21A9" : "\u2192"}
         </span>

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { use3DTilt } from "@/hooks/use3DTilt";
 import type { Project } from "@/data/projects";
 import Link from "next/link";
@@ -26,6 +27,7 @@ interface MockupCardProps {
 }
 
 export default function MockupCard({ project, className = "" }: MockupCardProps) {
+  const { t } = useTranslation("common");
   const { ref, style, handlers } = use3DTilt(5);
   const shimmerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
@@ -190,7 +192,7 @@ export default function MockupCard({ project, className = "" }: MockupCardProps)
           )}
           {project.caseStudy && (
             <span className="text-[13px] font-medium text-muted group-hover:text-foreground transition-colors duration-300 flex items-center gap-1.5 min-h-[44px]">
-              View Case Study
+              {t("viewCaseStudy")}
               <svg
                 width="14"
                 height="14"

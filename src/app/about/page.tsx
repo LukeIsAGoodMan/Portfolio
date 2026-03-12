@@ -3,18 +3,21 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
-import {
-  profile,
-  stats,
-  education,
-  experience,
-  coreCompetencies,
-  tools,
-  awards,
-  professionalDevelopment,
-} from "@/data/resumeData";
+import { useResumeData } from "@/data/useResumeData";
 
 export default function AboutPage() {
+  const {
+    sectionHeadings,
+    profile,
+    stats,
+    education,
+    experience,
+    professionalDevelopment,
+    coreCompetencies,
+    tools,
+    awards,
+  } = useResumeData();
+
   return (
     <div className="pt-28 pb-32">
       {/* ── Hero intro with portrait ── */}
@@ -65,7 +68,7 @@ export default function AboutPage() {
           <div className="flex-1">
             <motion.div {...scrollRevealProps(0)} className="text-center md:text-left mb-12">
               <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
-                About
+                {sectionHeadings.about}
               </p>
               <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.05em] leading-[1.08] mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900">
                 {profile.name}
@@ -151,16 +154,16 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6 mb-32">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-3">
-            Core Competencies
+            {sectionHeadings.coreCompetencies}
           </h2>
           <p className="text-[14px] text-muted mb-8">
-            Instructional Design &middot; Scalable Delivery
+            {sectionHeadings.competenciesSubtitle}
           </p>
         </motion.div>
         <div className="flex flex-wrap gap-3">
           {coreCompetencies.map((skill, i) => (
             <motion.span
-              key={skill}
+              key={i}
               {...scrollRevealProps(i * 0.04)}
               className="px-4 py-2 text-[13px] font-medium border border-border rounded-full text-muted transition-colors hover:text-foreground hover:border-foreground"
             >
@@ -174,13 +177,13 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6 mb-32">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-12">
-            Professional Experience
+            {sectionHeadings.experience}
           </h2>
         </motion.div>
         <div className="space-y-16 border-l border-border pl-5 md:pl-8">
           {experience.map((item, i) => (
             <motion.div
-              key={item.period}
+              key={i}
               {...scrollRevealProps(i * 0.08)}
               className="relative"
             >
@@ -213,7 +216,7 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6 mb-32">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-12">
-            Education
+            {sectionHeadings.education}
           </h2>
         </motion.div>
         <div className="space-y-12">
@@ -225,7 +228,7 @@ export default function AboutPage() {
 
             return (
               <motion.div
-                key={item.degree}
+                key={i}
                 {...scrollRevealProps(i * 0.08)}
                 className="relative overflow-hidden rounded-2xl"
               >
@@ -270,11 +273,11 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6 mb-32">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-8">
-            Professional Development
+            {sectionHeadings.profDev}
           </h2>
         </motion.div>
         {professionalDevelopment.map((item, i) => (
-          <motion.div key={item.title} {...scrollRevealProps(i * 0.08)}>
+          <motion.div key={i} {...scrollRevealProps(i * 0.08)}>
             <p className="text-[12px] uppercase tracking-[0.12em] text-muted mb-2 font-medium">
               {item.year}
             </p>
@@ -292,13 +295,13 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6 mb-32">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-8">
-            Tools &amp; Technology
+            {sectionHeadings.tools}
           </h2>
         </motion.div>
         <div className="flex flex-wrap gap-3">
           {tools.map((tool, i) => (
             <motion.span
-              key={tool}
+              key={i}
               {...scrollRevealProps(i * 0.04)}
               className="px-4 py-2 text-[13px] font-medium bg-white border border-border rounded-full text-muted"
             >
@@ -312,13 +315,13 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[900px] px-6">
         <motion.div {...scrollRevealProps(0)}>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-8">
-            Awards
+            {sectionHeadings.awards}
           </h2>
         </motion.div>
         <div className="space-y-6">
           {awards.map((award, i) => (
             <motion.div
-              key={award.title}
+              key={i}
               {...scrollRevealProps(i * 0.08)}
               className="flex items-baseline justify-between"
             >
