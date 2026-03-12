@@ -32,7 +32,6 @@ export default function Footer() {
               leading-[0.85]
               text-[#d1d1d6]/60
               select-none
-              break-words
             "
           >
             {t("footer.philosophy_line1")}

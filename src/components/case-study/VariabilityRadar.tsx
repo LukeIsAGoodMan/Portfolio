@@ -147,7 +147,7 @@ export default function VariabilityRadar() {
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25 }}
             className={`
-              absolute -top-3 left-1/2 -translate-x-1/2
+              absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap
               px-3 py-1 text-[11px] font-medium tracking-[0.04em] uppercase
               rounded-full
               ${
