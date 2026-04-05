@@ -20,13 +20,14 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  // ── Flagships (with live demos) ──
   {
     slug: "ta-onboarding-program",
     title: "TA Onboarding Mini-Course",
     displayTitle: "Standardize.\nScale.\nRepeat.",
     stat: "30 hrs saved / semester",
-    year: "2025",
-    category: "Instructional Design",
+    year: "2026",
+    category: "Instructional Design / Process Prep",
     description:
       "Created a standardized onboarding program that reduced variability across the teaching team, improved instructional consistency, and enabled scalable, repeatable training delivery.",
     icon: "\u{1F680}",
@@ -36,6 +37,23 @@ export const projects: Project[] = [
     caseStudy: "/work/ta-onboarding",
     image: "/photo5.png",
   },
+  {
+    slug: "corporate-training-system",
+    title: "Strategic Communication",
+    displayTitle: "Influence.\nAlign.\nExecute.",
+    stat: "+45% alignment",
+    year: "2026",
+    category: "Leadership Development / Corporate Strategy",
+    description:
+      "A tailored learning experience designed for mid-to-senior leadership to synchronize corporate vision with frontline execution through high-stakes communication mastery.",
+    icon: "\u{1F3AF}",
+    tags: ["Leadership L&D", "Strategic Comms", "Pyramid Principle"],
+    featured: true,
+    size: "large",
+    caseStudy: "/work/strategic-communicator",
+    image: "/photo6.png",
+  },
+  // ── Supporting projects ──
   {
     slug: "scalable-digital-learning",
     title: "Self-Paced Digital Learning System",
@@ -64,22 +82,6 @@ export const projects: Project[] = [
     tags: ["K\u201312", "SLA Theory", "Assessment", "Iterative Design"],
     featured: true,
     size: "medium",
-  },
-  {
-    slug: "corporate-training-system",
-    title: "Strategic Communication",
-    displayTitle: "Influence.\nAlign.\nExecute.",
-    stat: "+45% alignment",
-    year: "2025",
-    category: "Leadership Development",
-    description:
-      "A tailored learning experience designed for mid-to-senior leadership to synchronize corporate vision with frontline execution through high-stakes communication mastery.",
-    icon: "\u{1F3AF}",
-    tags: ["Leadership L&D", "Strategic Comms", "Pyramid Principle"],
-    featured: true,
-    size: "small",
-    caseStudy: "/work/strategic-communicator",
-    image: "/photo6.png",
   },
   {
     slug: "instructor-led-seminars",
