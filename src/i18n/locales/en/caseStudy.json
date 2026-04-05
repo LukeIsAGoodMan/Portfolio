@@ -52,5 +52,11 @@
     "heading": "Measurable outcomes.",
     "description": "The standardized onboarding system transformed TA readiness from the first semester of deployment."
   },
+  "simulation": {
+    "label": "Final Product",
+    "heading": "Experience the simulation firsthand.",
+    "description": "An interactive, branching-scenario module built in Articulate Storyline 360 — the same environment TAs use during onboarding.",
+    "openTab": "Open in New Tab"
+  },
   "footerCta": "Back to All Projects"
 }

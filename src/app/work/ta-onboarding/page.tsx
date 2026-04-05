@@ -224,7 +224,7 @@ export default function TAOnboardingCaseStudy() {
             {/* Iframe container — 16:10 aspect ratio */}
             <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
               <iframe
-                src="/projects/ta-training/index.html"
+                src="/Projects/TA_boarding/index.html"
                 title="BUS303 TA Onboarding Simulation"
                 className="absolute inset-0 w-full h-full border-0"
                 allowFullScreen
@@ -235,7 +235,7 @@ export default function TAOnboardingCaseStudy() {
           {/* Fallback link */}
           <motion.div {...scrollRevealProps(0.2)} className="text-center mt-6">
             <a
-              href="/projects/ta-training/index.html"
+              href="/Projects/TA_boarding/index.html"
               target="_blank"
               rel="noopener noreferrer"
               data-magnetic

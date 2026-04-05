@@ -52,5 +52,11 @@
     "heading": "可衡量的成果。",
     "description": "标准化入职培训体系从部署的第一个学期起就改变了助教的准备状态。"
   },
+  "simulation": {
+    "label": "最终产品",
+    "heading": "亲身体验互动仿真。",
+    "description": "一个在Articulate Storyline 360中构建的交互式分支情景模块——与助教入职培训中使用的环境完全一致。",
+    "openTab": "在新标签页中打开"
+  },
   "footerCta": "返回所有项目"
 }
