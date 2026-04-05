@@ -1,0 +1,87 @@
+{
+  "backLink": "All Projects",
+  "label": "Case Study",
+  "title_line1": "The Strategic Communicator:",
+  "title_line2": "Mastering High-Stakes Influence",
+  "subtitle": "A tailored learning experience designed for mid-to-senior leadership to synchronize corporate vision with frontline execution.",
+  "meta": [
+    { "label": "Role", "value": "Lead LXD" },
+    { "label": "Tools", "value": "Storyline 360, Minto Pyramid" },
+    { "label": "Methodology", "value": "Performance-Based Design" }
+  ],
+  "problem": {
+    "label": "The Gap",
+    "heading": "Leaders were informing, not influencing.",
+    "description": "Strategic intent was lost in translation. Executives communicated data instead of direction, creating misalignment between vision and execution across teams."
+  },
+  "radar": {
+    "axes": ["Strategic Intent", "Audience Empathy", "Message Architecture", "Delivery Mastery", "Impact Measurement"],
+    "badgeBefore": "Information Dumping",
+    "badgeAfter": "Strategic Influencing",
+    "buttonStandardize": "Transform",
+    "buttonReset": "Reset to Before"
+  },
+  "process": {
+    "label": "The Framework",
+    "heading": "Designing for Strategic Impact",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Stakeholder Analysis",
+        "subtitle": "Mapping Power-Interest Grids to decode influence dynamics.",
+        "body": [
+          "Before designing a single slide or scenario, we mapped the organizational influence topology. Using adapted Mendelow Power-Interest Grids, we identified the critical stakeholder archetypes each leader would face: the skeptical board member, the overwhelmed middle manager, the disengaged cross-functional partner.",
+          "This analysis drove the scenario branching logic. Every simulation pathway corresponds to a real stakeholder archetype, ensuring practice transfers directly to the boardroom."
+        ]
+      },
+      {
+        "number": "02",
+        "title": "The Pyramid Principle",
+        "subtitle": "Applying Barbara Minto's structural logic for message clarity.",
+        "body": [
+          "Most leaders bury the lead. They narrate chronologically when their audience needs the conclusion first. We restructured communication patterns using the Pyramid Principle: lead with the recommendation, support with grouped arguments, ground each argument in evidence.",
+          "The simulation enforces this structure. Learners who present bottom-up receive realistic pushback from virtual stakeholders. Those who lead with strategic framing see immediate alignment in the simulation's response metrics."
+        ]
+      },
+      {
+        "number": "03",
+        "title": "Branching Simulations",
+        "subtitle": "Real-world scenarios for risk-free strategic practice.",
+        "body": [
+          "Each scenario places the learner in a high-stakes communication moment: presenting a restructuring plan to the board, aligning a resistant sales team on a new go-to-market strategy, or delivering a difficult performance narrative to a senior stakeholder.",
+          "The branching engine tracks three dimensions: strategic clarity, audience resonance, and decisiveness. Immediate feedback surfaces blind spots without the career consequences of learning on the job."
+        ]
+      }
+    ]
+  },
+  "simulation": {
+    "label": "The Strategy Lab",
+    "heading": "Step into the boardroom.",
+    "description": "An interactive branching simulation built in Articulate Storyline 360. Navigate high-stakes communication scenarios where every word shapes outcomes.",
+    "startLabel": "Begin Strategy Analysis",
+    "openTab": "Open in New Tab"
+  },
+  "impact": {
+    "label": "Business Impact",
+    "heading": "Measurable leadership transformation.",
+    "description": "Quantifiable shifts in communication effectiveness from the first cohort deployment."
+  },
+  "impactStats": [
+    {
+      "suffix": "% Improvement",
+      "label": "+45% Alignment Index",
+      "description": "Cross-functional strategic clarity improved measurably, with teams reporting stronger understanding of organizational priorities."
+    },
+    {
+      "suffix": "% Faster",
+      "label": "30% Decision Speed",
+      "description": "Meeting-to-execution cycle time reduced through structured, recommendation-first communication frameworks."
+    },
+    {
+      "suffix": "% Resonance",
+      "label": "87% Audience Resonance",
+      "description": "Stakeholder empathy scores shifted from information-processing to strategic engagement across all measured cohorts."
+    }
+  ],
+  "footerCta": "Back to All Projects"
+}

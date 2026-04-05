@@ -12,6 +12,7 @@ import enResume from "./locales/en/resume.json";
 import enCaseStudy from "./locales/en/caseStudy.json";
 import enRadar from "./locales/en/radar.json";
 import enImpact from "./locales/en/impact.json";
+import enStrategicCommunicator from "./locales/en/strategicCommunicator.json";
 
 /* ── ZH locale imports ── */
 import zhCommon from "./locales/zh/common.json";
@@ -23,6 +24,7 @@ import zhResume from "./locales/zh/resume.json";
 import zhCaseStudy from "./locales/zh/caseStudy.json";
 import zhRadar from "./locales/zh/radar.json";
 import zhImpact from "./locales/zh/impact.json";
+import zhStrategicCommunicator from "./locales/zh/strategicCommunicator.json";
 
 i18n
   .use(LanguageDetector)
@@ -39,6 +41,7 @@ i18n
         caseStudy: enCaseStudy,
         radar: enRadar,
         impact: enImpact,
+        strategicCommunicator: enStrategicCommunicator,
       },
       zh: {
         common: zhCommon,
@@ -50,6 +53,7 @@ i18n
         caseStudy: zhCaseStudy,
         radar: zhRadar,
         impact: zhImpact,
+        strategicCommunicator: zhStrategicCommunicator,
       },
     },
     fallbackLng: "en",

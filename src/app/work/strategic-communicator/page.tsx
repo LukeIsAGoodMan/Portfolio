@@ -1,23 +1,19 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
-import dynamic from "next/dynamic";
 
-const VariabilityRadar = dynamic(
-  () => import("@/components/case-study/VariabilityRadar"),
-  { ssr: false },
-);
-const ImpactStats = dynamic(
-  () => import("@/components/case-study/ImpactStats"),
-  { ssr: false },
-);
+/* ═══════════════════════════════════════════════
+   The Strategic Communicator — Case Study
+   Corporate Leadership × High-Stakes Influence
+   ═══════════════════════════════════════════════ */
 
-export default function TAOnboardingCaseStudy() {
-  const { t } = useTranslation("caseStudy");
+const EASE_EXPO = [0.23, 1, 0.32, 1] as [number, number, number, number];
+
+export default function StrategicCommunicatorCaseStudy() {
+  const { t } = useTranslation("strategicCommunicator");
 
   const meta = t("meta", { returnObjects: true }) as Array<{
     label: string;
@@ -34,7 +30,7 @@ export default function TAOnboardingCaseStudy() {
   return (
     <div className="pt-28 pb-32">
       {/* ════════════════════════════════════════
-         Section 1: Apple Product-Launch Header
+         Section 1: Executive Header
          ════════════════════════════════════════ */}
       <section className="mx-auto max-w-[900px] px-6 mb-24">
         {/* Back link */}
@@ -93,7 +89,7 @@ export default function TAOnboardingCaseStudy() {
       </div>
 
       {/* ════════════════════════════════════════
-         Section 2: The "Before" — Variability Radar
+         Section 2: The Gap — Strategy Radar
          ════════════════════════════════════════ */}
       <section className="mx-auto max-w-[900px] px-6 py-24">
         <motion.div {...scrollRevealProps(0)} className="text-center mb-4">
@@ -109,7 +105,7 @@ export default function TAOnboardingCaseStudy() {
         </motion.div>
 
         <motion.div {...scrollRevealProps(0.1)}>
-          <VariabilityRadar />
+          <StrategyRadar />
         </motion.div>
       </section>
 
@@ -119,21 +115,10 @@ export default function TAOnboardingCaseStudy() {
       </div>
 
       {/* ════════════════════════════════════════
-         Section 3: The Process — LXD Mindset
+         Section 3: The Framework — LXD Process
          ════════════════════════════════════════ */}
-      <section className="relative mx-auto max-w-[900px] px-6 py-24 overflow-hidden">
-        {/* Solution backdrop — photo4 */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
-            src="/photo4.png"
-            alt=""
-            fill
-            className="object-cover melt-mask opacity-[0.10] md:opacity-[0.14]"
-            sizes="900px"
-          />
-        </div>
-
-        <motion.div {...scrollRevealProps(0)} className="relative z-[1] text-center mb-16">
+      <section className="mx-auto max-w-[900px] px-6 py-24">
+        <motion.div {...scrollRevealProps(0)} className="text-center mb-16">
           <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
             {t("process.label")}
           </p>
@@ -142,14 +127,13 @@ export default function TAOnboardingCaseStudy() {
           </h2>
         </motion.div>
 
-        <div className="relative z-[1] space-y-24">
+        <div className="space-y-24">
           {processSteps.map((section, i) => (
             <motion.div
               key={section.number}
               {...scrollRevealProps(i * 0.06)}
               className="relative"
             >
-              {/* Step number */}
               <div className="flex items-baseline gap-4 mb-6">
                 <span className="text-[clamp(2.5rem,5vw,3.5rem)] font-semibold tracking-[-0.06em] text-border leading-none select-none">
                   {section.number}
@@ -164,7 +148,6 @@ export default function TAOnboardingCaseStudy() {
                 </div>
               </div>
 
-              {/* Body paragraphs */}
               <div className="pl-0 md:pl-[72px] space-y-4">
                 {section.body.map((paragraph, j) => (
                   <p
@@ -181,7 +164,7 @@ export default function TAOnboardingCaseStudy() {
       </section>
 
       {/* ════════════════════════════════════════
-         Section 3.5: Live Simulation — Final Product
+         Section 3.5: The Strategy Lab — Simulation
          ════════════════════════════════════════ */}
       <SimulationSection t={t} />
 
@@ -191,7 +174,7 @@ export default function TAOnboardingCaseStudy() {
       </div>
 
       {/* ════════════════════════════════════════
-         Section 4: The Impact Dashboard
+         Section 4: Business Impact Dashboard
          ════════════════════════════════════════ */}
       <section className="mx-auto max-w-[900px] px-6 py-24">
         <motion.div {...scrollRevealProps(0)} className="text-center mb-14">
@@ -206,7 +189,7 @@ export default function TAOnboardingCaseStudy() {
           </p>
         </motion.div>
 
-        <ImpactStats />
+        <StrategicImpactStats />
       </section>
 
       {/* ════════════════════════════════════════
@@ -236,7 +219,173 @@ export default function TAOnboardingCaseStudy() {
 }
 
 /* ═══════════════════════════════════════════════
-   Live Simulation — extracted for state isolation
+   Strategy Radar — 5-axis SVG radar chart
+   Before: Information Dumping (jagged)
+   After: Strategic Influencing (high, uniform)
+   ═══════════════════════════════════════════════ */
+
+const AXIS_COUNT = 5;
+const BEFORE_VALUES = [0.35, 0.25, 0.20, 0.45, 0.15]; // jagged, low
+const AFTER_VALUES  = [0.85, 0.80, 0.88, 0.82, 0.78]; // high, near-uniform
+
+const SIZE = 280;
+const CENTER = SIZE / 2;
+const RADIUS = 110;
+const RINGS = [0.25, 0.5, 0.75, 1.0];
+
+function polarToCartesian(angle: number, radius: number) {
+  const rad = ((angle - 90) * Math.PI) / 180;
+  return {
+    x: CENTER + radius * Math.cos(rad),
+    y: CENTER + radius * Math.sin(rad),
+  };
+}
+
+function buildPolygonPath(values: number[]): string {
+  const step = 360 / AXIS_COUNT;
+  return values
+    .map((v, i) => {
+      const { x, y } = polarToCartesian(i * step, v * RADIUS);
+      return `${i === 0 ? "M" : "L"}${x},${y}`;
+    })
+    .join(" ") + " Z";
+}
+
+function StrategyRadar() {
+  const { t } = useTranslation("strategicCommunicator");
+  const axes = t("radar.axes", { returnObjects: true }) as string[];
+  const [transformed, setTransformed] = useState(false);
+  const values = transformed ? AFTER_VALUES : BEFORE_VALUES;
+
+  const axisStep = 360 / AXIS_COUNT;
+  const path = useMemo(() => buildPolygonPath(values), [values]);
+
+  return (
+    <div className="flex flex-col items-center gap-8">
+      <div className="relative">
+        <svg
+          width={SIZE}
+          height={SIZE}
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
+          className="overflow-visible"
+        >
+          {/* Grid rings */}
+          {RINGS.map((r) => (
+            <circle
+              key={r}
+              cx={CENTER}
+              cy={CENTER}
+              r={r * RADIUS}
+              fill="none"
+              stroke="#e5e7eb"
+              strokeWidth={0.75}
+            />
+          ))}
+
+          {/* Axis lines + labels */}
+          {axes.map((label, i) => {
+            const angle = i * axisStep;
+            const end = polarToCartesian(angle, RADIUS + 2);
+            const labelPos = polarToCartesian(angle, RADIUS + 24);
+            return (
+              <g key={i}>
+                <line
+                  x1={CENTER}
+                  y1={CENTER}
+                  x2={end.x}
+                  y2={end.y}
+                  stroke="#e5e7eb"
+                  strokeWidth={0.75}
+                />
+                <text
+                  x={labelPos.x}
+                  y={labelPos.y}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  className="fill-muted text-[10px] font-medium tracking-[0.02em]"
+                >
+                  {label}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Data polygon */}
+          <motion.path
+            d={path}
+            fill={transformed ? "rgba(0,113,227,0.10)" : "rgba(220,60,60,0.08)"}
+            stroke={transformed ? "#0071e3" : "#dc3c3c"}
+            strokeWidth={1.5}
+            strokeLinejoin="round"
+            initial={false}
+            animate={{ d: path }}
+            transition={{ duration: 0.9, ease: EASE_EXPO }}
+          />
+
+          {/* Data points */}
+          {values.map((v, i) => {
+            const { x, y } = polarToCartesian(i * axisStep, v * RADIUS);
+            return (
+              <motion.circle
+                key={i}
+                r={3.5}
+                fill={transformed ? "#0071e3" : "#dc3c3c"}
+                initial={false}
+                animate={{ cx: x, cy: y }}
+                transition={{ duration: 0.9, ease: EASE_EXPO }}
+              />
+            );
+          })}
+        </svg>
+
+        {/* State badge */}
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? "after" : "before"}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className={`
+              absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap
+              px-3 py-1 text-[11px] font-medium tracking-[0.04em] uppercase
+              rounded-full
+              ${
+                transformed
+                  ? "bg-[#0071e3]/10 text-[#0071e3]"
+                  : "bg-[#dc3c3c]/10 text-[#dc3c3c]"
+              }
+            `}
+          >
+            {transformed ? t("radar.badgeAfter") : t("radar.badgeBefore")}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+
+      {/* Toggle button */}
+      <button
+        onClick={() => setTransformed((s) => !s)}
+        data-magnetic
+        className="
+          inline-flex items-center gap-2 px-6 py-3
+          bg-foreground text-background
+          text-[13px] font-medium tracking-[0.01em]
+          rounded-full
+          transition-transform duration-300
+          hover:scale-[1.04] active:scale-[0.98]
+        "
+      >
+        {transformed ? t("radar.buttonReset") : t("radar.buttonStandardize")}
+        <span className="text-[15px]" aria-hidden="true">
+          {transformed ? "\u21A9" : "\u2192"}
+        </span>
+      </button>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   Live Simulation — with silky cursor transition
    ═══════════════════════════════════════════════ */
 
 function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unknown>) => string }) {
@@ -265,8 +414,7 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
           </p>
         </motion.div>
 
-        {/* Cursor sentinel — slightly larger hit area so mouseleave
-            fires reliably even at iframe edges */}
+        {/* Cursor sentinel */}
         <div
           className="relative -mx-2 px-2"
           onMouseEnter={hideCustomCursor}
@@ -288,7 +436,7 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
               </div>
               <div className="flex-1 flex justify-center">
                 <span className="text-[12px] text-muted/60 font-medium tracking-[0.01em] select-none">
-                  BUS303 TA Onboarding Simulation
+                  Strategic Communicator Simulation
                 </span>
               </div>
               <div className="w-[52px]" />
@@ -297,22 +445,21 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
             {/* Iframe container */}
             <div className="relative w-full aspect-[3/4] md:aspect-[16/10]">
               <iframe
-                src="/Projects/TA_boarding/index.html"
-                title="BUS303 TA Onboarding Simulation"
+                src="/Projects/Strategic_Communicator/story.html"
+                title="Strategic Communicator Simulation"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{ pointerEvents: active ? "auto" : "none" }}
                 allowFullScreen
               />
 
-              {/* Overlay — click to activate */}
+              {/* Overlay — frosted glass with CTA */}
               {!active && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/5 backdrop-blur-[2px] cursor-pointer"
+                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/10 backdrop-blur-[3px] cursor-pointer"
                   onClick={() => setActive(true)}
                 >
-                  {/* Play button */}
                   <motion.div
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
@@ -327,7 +474,7 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
                     </svg>
                   </motion.div>
                   <span className="text-[13px] font-medium text-foreground/80 tracking-[0.02em]">
-                    {t("simulation.startLabel", { defaultValue: "Start Simulation" })}
+                    {t("simulation.startLabel", { defaultValue: "Begin Strategy Analysis" })}
                   </span>
                 </motion.div>
               )}
@@ -338,7 +485,7 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
         {/* Fallback link */}
         <motion.div {...scrollRevealProps(0.2)} className="text-center mt-6">
           <a
-            href="/Projects/TA_boarding/index.html"
+            href="/Projects/Strategic_Communicator/story.html"
             target="_blank"
             rel="noopener noreferrer"
             data-magnetic
@@ -350,5 +497,132 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   Business Impact Dashboard — animated counters
+   ═══════════════════════════════════════════════ */
+
+const AlignIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 8v4l3 3" />
+    <path d="M8 12h8" />
+  </svg>
+);
+
+const SpeedIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+  </svg>
+);
+
+const ResonanceIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+  </svg>
+);
+
+const IMPACT_ICONS = [<AlignIcon />, <SpeedIcon />, <ResonanceIcon />];
+const IMPACT_VALUES = [45, 30, 87];
+
+function useCountUp(target: number, trigger: boolean, duration = 1200) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!trigger) return;
+
+    let start = 0;
+    const startTime = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+
+      if (current !== start) {
+        start = current;
+        setCount(current);
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }, [trigger, target, duration]);
+
+  return count;
+}
+
+function ImpactCard({ icon, value, suffix, description, index }: {
+  icon: React.ReactNode;
+  value: number;
+  suffix: string;
+  description: string;
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const count = useCountUp(value, isInView);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.12,
+        ease: EASE_EXPO,
+      }}
+      className="
+        relative p-8
+        bg-white rounded-[24px]
+        border border-[#e5e7eb]
+        shadow-[0_2px_12px_rgba(0,0,0,0.03)]
+      "
+    >
+      <div className="text-muted mb-5">{icon}</div>
+
+      <p className="text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.04em] leading-none mb-1">
+        {count}
+        <span className="text-[clamp(0.9rem,1.8vw,1.1rem)] text-muted font-medium tracking-[-0.02em]">
+          {suffix}
+        </span>
+      </p>
+
+      <p className="text-[14px] text-muted leading-[1.6] mt-3">
+        {description}
+      </p>
+    </motion.div>
+  );
+}
+
+function StrategicImpactStats() {
+  const { t } = useTranslation("strategicCommunicator");
+  const stats = t("impactStats", { returnObjects: true }) as Array<{
+    suffix: string;
+    label: string;
+    description: string;
+  }>;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {stats.map((stat, i) => (
+        <ImpactCard
+          key={i}
+          icon={IMPACT_ICONS[i]}
+          value={IMPACT_VALUES[i]}
+          suffix={stat.suffix}
+          description={stat.description}
+          index={i}
+        />
+      ))}
+    </div>
   );
 }
