@@ -68,6 +68,12 @@ body::after {
   [data-magnetic] {
     cursor: none;
   }
+
+  /* Restore system cursor inside simulation zone */
+  body.hide-custom-cursor,
+  body.hide-custom-cursor * {
+    cursor: auto;
+  }
 }
 
 /* ─── "Melt-into-paper" radial mask for gallery images ─── */

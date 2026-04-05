@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -242,6 +242,14 @@ export default function TAOnboardingCaseStudy() {
 function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unknown>) => string }) {
   const [active, setActive] = useState(false);
 
+  const hideCustomCursor = useCallback(() => {
+    document.body.classList.add("hide-custom-cursor");
+  }, []);
+
+  const showCustomCursor = useCallback(() => {
+    document.body.classList.remove("hide-custom-cursor");
+  }, []);
+
   return (
     <section className="bg-[#fbfbfd] py-16 md:py-28">
       <div className="mx-auto max-w-[1100px] px-4 md:px-6">
@@ -257,70 +265,75 @@ function SimulationSection({ t }: { t: (key: string, opts?: Record<string, unkno
           </p>
         </motion.div>
 
-        {/* Browser mockup */}
-        <motion.div
-          {...scrollRevealProps(0.1)}
-          whileHover={active ? undefined : { scale: 1.005 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="rounded-none md:rounded-2xl shadow-none md:shadow-2xl md:border border-border bg-white overflow-hidden"
+        {/* Cursor sentinel — slightly larger hit area so mouseleave
+            fires reliably even at iframe edges */}
+        <div
+          className="relative -mx-2 px-2"
+          onMouseEnter={hideCustomCursor}
+          onMouseLeave={showCustomCursor}
         >
-          {/* Title bar — hidden on mobile */}
-          <div className="hidden md:flex items-center gap-3 px-5 py-3.5 bg-[#f5f5f7] border-b border-border">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-              <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            </div>
-            <div className="flex-1 flex justify-center">
-              <span className="text-[12px] text-muted/60 font-medium tracking-[0.01em] select-none">
-                BUS303 TA Onboarding Simulation
-              </span>
-            </div>
-            <div className="w-[52px]" />
-          </div>
-
-          {/* Iframe container */}
-          <div
-            className="relative w-full aspect-[3/4] md:aspect-[16/10] cursor-default"
-            style={{ cursor: active ? "default" : undefined }}
+          {/* Browser mockup */}
+          <motion.div
+            {...scrollRevealProps(0.1)}
+            whileHover={active ? undefined : { scale: 1.005 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="rounded-none md:rounded-2xl shadow-none md:shadow-2xl md:border border-border bg-white overflow-hidden"
           >
-            <iframe
-              src="/Projects/TA_boarding/index.html"
-              title="BUS303 TA Onboarding Simulation"
-              className="absolute inset-0 w-full h-full border-0"
-              style={{ pointerEvents: active ? "auto" : "none" }}
-              allowFullScreen
-            />
-
-            {/* Overlay — click to activate */}
-            {!active && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/5 backdrop-blur-[2px] cursor-pointer"
-                onClick={() => setActive(true)}
-              >
-                {/* Play button */}
-                <motion.div
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 shadow-lg flex items-center justify-center mb-4"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-7 h-7 md:w-8 md:h-8 text-foreground ml-1"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </motion.div>
-                <span className="text-[13px] font-medium text-foreground/80 tracking-[0.02em]">
-                  {t("simulation.startLabel", { defaultValue: "Start Simulation" })}
+            {/* Title bar — hidden on mobile */}
+            <div className="hidden md:flex items-center gap-3 px-5 py-3.5 bg-[#f5f5f7] border-b border-border">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+              </div>
+              <div className="flex-1 flex justify-center">
+                <span className="text-[12px] text-muted/60 font-medium tracking-[0.01em] select-none">
+                  BUS303 TA Onboarding Simulation
                 </span>
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
+              </div>
+              <div className="w-[52px]" />
+            </div>
+
+            {/* Iframe container */}
+            <div className="relative w-full aspect-[3/4] md:aspect-[16/10]">
+              <iframe
+                src="/Projects/TA_boarding/index.html"
+                title="BUS303 TA Onboarding Simulation"
+                className="absolute inset-0 w-full h-full border-0"
+                style={{ pointerEvents: active ? "auto" : "none" }}
+                allowFullScreen
+              />
+
+              {/* Overlay — click to activate */}
+              {!active && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/5 backdrop-blur-[2px] cursor-pointer"
+                  onClick={() => setActive(true)}
+                >
+                  {/* Play button */}
+                  <motion.div
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 shadow-lg flex items-center justify-center mb-4"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-7 h-7 md:w-8 md:h-8 text-foreground ml-1"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </motion.div>
+                  <span className="text-[13px] font-medium text-foreground/80 tracking-[0.02em]">
+                    {t("simulation.startLabel", { defaultValue: "Start Simulation" })}
+                  </span>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </div>
 
         {/* Fallback link */}
         <motion.div {...scrollRevealProps(0.2)} className="text-center mt-6">
