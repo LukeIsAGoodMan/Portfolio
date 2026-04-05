@@ -179,6 +179,75 @@ export default function TAOnboardingCaseStudy() {
         </div>
       </section>
 
+      {/* ════════════════════════════════════════
+         Section 3.5: Live Simulation — Final Product
+         ════════════════════════════════════════ */}
+      <section className="bg-[#fbfbfd] py-28">
+        <div className="mx-auto max-w-[1100px] px-6">
+          <motion.div {...scrollRevealProps(0)} className="text-center mb-14">
+            <p className="text-[13px] uppercase tracking-[0.2em] text-muted mb-4 font-medium">
+              {t("simulation.label")}
+            </p>
+            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12] mb-4">
+              {t("simulation.heading")}
+            </h2>
+            <p className="text-[15px] text-muted max-w-[520px] mx-auto leading-[1.6]">
+              {t("simulation.description")}
+            </p>
+          </motion.div>
+
+          {/* Browser mockup */}
+          <motion.div
+            {...scrollRevealProps(0.1)}
+            whileHover={{ scale: 1.008 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="rounded-2xl shadow-2xl border border-border bg-white overflow-hidden"
+          >
+            {/* Title bar */}
+            <div className="flex items-center gap-3 px-5 py-3.5 bg-[#f5f5f7] border-b border-border">
+              {/* Traffic lights */}
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+              </div>
+              {/* URL bar */}
+              <div className="flex-1 flex justify-center">
+                <span className="text-[12px] text-muted/60 font-medium tracking-[0.01em] select-none">
+                  BUS303 TA Onboarding Simulation
+                </span>
+              </div>
+              {/* Spacer to balance traffic lights */}
+              <div className="w-[52px]" />
+            </div>
+
+            {/* Iframe container — 16:10 aspect ratio */}
+            <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
+              <iframe
+                src="/projects/ta-training/index.html"
+                title="BUS303 TA Onboarding Simulation"
+                className="absolute inset-0 w-full h-full border-0"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
+
+          {/* Fallback link */}
+          <motion.div {...scrollRevealProps(0.2)} className="text-center mt-6">
+            <a
+              href="/projects/ta-training/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-magnetic
+              className="inline-flex items-center gap-1.5 text-[13px] text-muted font-medium tracking-[0.01em] transition-colors hover:text-foreground"
+            >
+              {t("simulation.openTab", { defaultValue: "Open in New Tab" })}
+              <span aria-hidden="true" className="text-[14px]">&nearr;</span>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Divider */}
       <div className="mx-auto max-w-[900px] px-6">
         <div className="border-t border-border" />
