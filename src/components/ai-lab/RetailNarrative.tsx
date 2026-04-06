@@ -17,7 +17,8 @@ export default function RetailNarrative({ onEnter }: { onEnter: () => void }) {
   });
 
   // Map vertical scroll to horizontal translate (3 panels = 0%, -100%, -200%)
-  const xTranslate = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["0%", "-100%", "-200%", "-200%"]);
+  // Clamp at -200% (panel 3) — prevents empty right space
+  const xTranslate = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.85, 1], ["0%", "-100%", "-200%", "-200%", "-200%"]);
 
   // Panel opacities
   const p1Opacity = useTransform(scrollYProgress, [0, 0.28, 0.36], [1, 1, 0.3]);
@@ -109,42 +110,39 @@ export default function RetailNarrative({ onEnter }: { onEnter: () => void }) {
 
           {/* ── Panel 3: The Advantage ── */}
           <motion.div
-            className="w-screen h-full flex items-center justify-center px-6"
-            style={{
-              opacity: p3Opacity,
-              background: "linear-gradient(180deg, #0B101A 0%, #1a1510 50%, #FAF9F6 100%)",
-            }}
+            className="w-screen h-full flex items-center justify-center px-6 bg-[#0B101A]"
+            style={{ opacity: p3Opacity }}
           >
             <div className="text-center max-w-[600px]">
               {/* Rose quartz sphere */}
               <div className="flex justify-center mb-8">
                 <div className="relative">
                   <div
-                    className="absolute inset-[-12px] rounded-full"
-                    style={{ boxShadow: "0 0 50px rgba(244,194,175,0.2), 0 0 100px rgba(244,194,175,0.08)" }}
+                    className="absolute inset-[-16px] rounded-full"
+                    style={{ boxShadow: "0 0 60px rgba(212,175,55,0.15), 0 0 120px rgba(244,194,175,0.1)" }}
                   />
                   <div
-                    className="w-20 h-20 rounded-full border border-[#f4c2af]/30 flex items-center justify-center"
+                    className="w-20 h-20 rounded-full border border-[#D4AF37]/30 flex items-center justify-center"
                     style={{
-                      background: "radial-gradient(circle at 35% 35%, rgba(244,194,175,0.25), rgba(244,194,175,0.05) 60%, transparent)",
+                      background: "radial-gradient(circle at 35% 35%, rgba(212,175,55,0.2), rgba(244,194,175,0.08) 60%, transparent)",
                     }}
                   >
                     <svg viewBox="0 0 40 40" className="w-12 h-12">
-                      <ellipse cx="20" cy="20" rx="14" ry="6" fill="none" stroke="rgba(244,194,175,0.4)" strokeWidth="0.6" />
-                      <ellipse cx="20" cy="20" rx="6" ry="14" fill="none" stroke="rgba(244,194,175,0.3)" strokeWidth="0.6" />
-                      <circle cx="20" cy="20" r="3" fill="rgba(244,194,175,0.5)" />
+                      <ellipse cx="20" cy="20" rx="14" ry="6" fill="none" stroke="rgba(212,175,55,0.4)" strokeWidth="0.6" />
+                      <ellipse cx="20" cy="20" rx="6" ry="14" fill="none" stroke="rgba(212,175,55,0.3)" strokeWidth="0.6" />
+                      <circle cx="20" cy="20" r="3" fill="rgba(212,175,55,0.5)" />
                     </svg>
                   </div>
                 </div>
               </div>
 
-              <p className="text-[11px] uppercase tracking-[0.15em] text-[#c49882] font-semibold mb-5">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-[#D4AF37] font-semibold mb-5">
                 Advantage
               </p>
-              <h2 className="text-3xl md:text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.05em] leading-[1.05] text-[#1a1510] mb-5">
+              <h2 className="text-3xl md:text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.05em] leading-[1.05] text-white mb-5">
                 The Infinite Sparring Partner.
               </h2>
-              <p className="text-[15px] text-[#7a6e63] leading-[1.7] max-w-[460px] mx-auto mb-10">
+              <p className="text-[15px] text-slate-400 leading-[1.7] max-w-[460px] mx-auto mb-10">
                 24/7 risk-free confrontation. Master the &quot;Unreasonable Request&quot; before it hits the floor.
               </p>
 
@@ -155,12 +153,12 @@ export default function RetailNarrative({ onEnter }: { onEnter: () => void }) {
                 data-magnetic
                 className="
                   inline-flex items-center gap-2.5 px-8 py-4
-                  bg-[#1a1510] text-[#FAF9F6]
+                  bg-[#D4AF37] text-[#0B101A]
                   text-[13px] font-semibold tracking-[0.01em]
                   rounded-full
-                  shadow-[0_0_30px_rgba(244,194,175,0.2)]
+                  shadow-[0_4px_24px_rgba(212,175,55,0.3),0_0_60px_rgba(212,175,55,0.15)]
                   transition-shadow duration-300
-                  hover:shadow-[0_0_50px_rgba(244,194,175,0.35)]
+                  hover:shadow-[0_4px_32px_rgba(212,175,55,0.45),0_0_80px_rgba(212,175,55,0.2)]
                 "
               >
                 Enter the Boutique
