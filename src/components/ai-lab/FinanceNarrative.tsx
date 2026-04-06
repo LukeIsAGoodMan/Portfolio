@@ -67,7 +67,7 @@ export default function FinanceNarrative({ onEnter }: { onEnter: () => void }) {
             <p className="text-[11px] uppercase tracking-[0.15em] text-red-400/70 font-semibold mb-6">
               Current Status
             </p>
-            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-[-0.05em] leading-[1.0] text-center text-white mb-6 max-w-[700px]">
+            <h2 className="text-3xl md:text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-[-0.05em] leading-[1.0] text-center text-white mb-6 max-w-[700px]">
               1,000+ Pages of
               <br />
               <span className="text-slate-500">Static Compliance</span>
@@ -77,13 +77,13 @@ export default function FinanceNarrative({ onEnter }: { onEnter: () => void }) {
             </p>
 
             {/* Pain points */}
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
               {PAIN_POINTS.map((point) => (
                 <span
                   key={point}
                   className="
-                    inline-flex items-center gap-1.5 px-4 py-2
-                    text-[11px] font-semibold tracking-[0.06em] uppercase
+                    inline-flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2
+                    text-[10px] md:text-[11px] font-semibold tracking-[0.06em] uppercase
                     bg-red-500/10 border border-red-500/20 rounded-full text-red-400/80
                   "
                 >
@@ -231,8 +231,10 @@ function Particle({ index, total, converge }: {
   index: number; total: number; converge: MotionValue<number>;
 }) {
   const angle = (index / total) * Math.PI * 2;
-  const x = useTransform(converge, [0, 1], [Math.cos(angle) * 220, Math.cos(angle) * 35]);
-  const y = useTransform(converge, [0, 1], [Math.sin(angle) * 220, Math.sin(angle) * 35]);
+  // Use smaller radius on mobile-sized viewports
+  const startR = typeof window !== "undefined" && window.innerWidth < 768 ? 120 : 220;
+  const x = useTransform(converge, [0, 1], [Math.cos(angle) * startR, Math.cos(angle) * 35]);
+  const y = useTransform(converge, [0, 1], [Math.sin(angle) * startR, Math.sin(angle) * 35]);
   const scale = useTransform(converge, [0, 0.5, 1], [0.4, 0.9, 0.2]);
   const opacity = useTransform(converge, [0, 0.2, 0.85, 1], [0, 0.8, 0.5, 0]);
 
