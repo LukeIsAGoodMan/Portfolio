@@ -9,8 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.50",
+    "@ai-sdk/react": "^3.0.148",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "ai": "^6.0.146",
     "framer-motion": "^12.34.1",
     "i18next": "^25.8.18",
     "i18next-browser-languagedetector": "^8.2.1",

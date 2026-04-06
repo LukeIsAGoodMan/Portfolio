@@ -37,6 +37,9 @@
       }
     ]
   },
+  "sandbox": {
+    "description": "Step into a production incident. Diagnose, investigate, and resolve \u2014 guided by an AI mentor that never gives you the answer."
+  },
   "simulation": {
     "label": "Live Prototype",
     "heading": "See it in action.",

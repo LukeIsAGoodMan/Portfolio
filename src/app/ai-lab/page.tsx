@@ -11,6 +11,11 @@ const KnowledgeCore = dynamic(
   { ssr: false },
 );
 
+const TerminalAgent = dynamic(
+  () => import("@/components/ai-lab/TerminalAgent"),
+  { ssr: false },
+);
+
 /* ═══════════════════════════════════════════════
    AI Powered Learning Experience Lab
    Dark-mode experimental showcase
@@ -188,6 +193,33 @@ export default function AiLabPage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+         Mission-Critical Sandbox — Live Terminal
+         ════════════════════════════════════════ */}
+      <section className="mx-auto max-w-[1200px] px-6 py-20">
+        <motion.div {...scrollRevealProps(0)} className="text-center mb-12">
+          <p className="text-[13px] uppercase tracking-[0.2em] text-slate-500 mb-4 font-medium">
+            {t("cases.items.0.industry", { defaultValue: "High Tech" })}
+          </p>
+          <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12] text-white mb-4">
+            {t("cases.items.0.title", { defaultValue: "Adaptive Skill-Pilot" })}
+          </h2>
+          <p className="text-[14px] md:text-[15px] text-slate-400 max-w-[520px] mx-auto leading-[1.6]">
+            {t("sandbox.description", { defaultValue: "Step into a production incident. Diagnose, investigate, and resolve — guided by an AI mentor that never gives you the answer." })}
+          </p>
+        </motion.div>
+
+        {/* Cursor sentinel — hide custom cursor over terminal */}
+        <motion.div
+          {...scrollRevealProps(0.1)}
+          onMouseEnter={() => document.body.classList.add("hide-custom-cursor")}
+          onMouseLeave={() => document.body.classList.remove("hide-custom-cursor")}
+          className="relative -mx-2 px-2"
+        >
+          <TerminalAgent scenarioId="tech-sre-sandbox" />
+        </motion.div>
       </section>
 
       {/* ════════════════════════════════════════
