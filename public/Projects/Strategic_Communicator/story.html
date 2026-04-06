@@ -94,52 +94,148 @@
 
   <!-- ── Premium Digital Lab Shell ── -->
   <style>
-    html, body {
+    /* ── 1. Total background reset ── */
+    html, body, #app, #preso,
+    .frame-area, .cs-preso,
+    .slide-container, .slide-transition-container {
       background: #0f172a !important;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      cursor: default;
-    }
-
-    /* Hide legacy Storyline chrome */
-    #side-bar,
-    .side-bar-container,
-    #sidebar-wrapper,
-    #footer,
-    .footer-container,
-    .mobile-load-title-overlay,
-    .mobile-chrome-warning,
-    .slide-loader { display: none !important; }
-
-    /* Centered player with premium framing */
-    #preso {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #preso > * {
-      border-radius: 12px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-    }
-
-    /* Keep presentation container edge-to-edge inside frame */
-    .cs-preso,
-    .frame-area,
-    .slide-layer {
+      background-color: #0f172a !important;
       margin: 0 !important;
       padding: 0 !important;
     }
+
+    html, body {
+      overflow: hidden !important;
+      cursor: default;
+    }
+
+    /* ── 2. Nuclear hide — all player chrome ── */
+    .side-bar-container,
+    #side-bar,
+    .sidebar-wrapper,
+    #sidebar-wrapper,
+    #sidebar-container,
+    [class*="sidebar"],
+    .footer-container,
+    #footer,
+    .player-controls,
+    .bottom-ui-container,
+    [class*="bottom-ui"],
+    .logo-container,
+    .logo-wrapper,
+    [class*="logo-"],
+    .hamburger-icon,
+    .menu-icon,
+    [class*="hamburger"],
+    [class*="menu-icon"],
+    .mobile-load-title-overlay,
+    .mobile-chrome-warning,
+    .slide-loader,
+    .top-bar,
+    [class*="top-bar"],
+    .player-top,
+    [class*="player-top"] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      left: -9999px !important;
+    }
+
+    /* ── 3. Center & frame the canvas ── */
+    #preso {
+      position: fixed !important;
+      inset: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: #0f172a !important;
+    }
+
+    /* The presentation wrapper (direct child of #preso) */
+    #preso > * {
+      border-radius: 16px !important;
+      box-shadow:
+        0 0 80px rgba(0, 0, 0, 0.8),
+        0 20px 40px rgba(0, 0, 0, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      overflow: hidden !important;
+    }
+
+    /* ── 4. Force content to fill iframe space ── */
+    .cs-preso,
+    .frame-area,
+    .slide-layer,
+    .primary-slide {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    /* Kill any white background on internal layers */
+    .frame-description,
+    .frame-description-area,
+    .cs-preso-wrapper {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+
+    /* ── 5. Responsive: never show menu on any size ── */
+    @media (max-width: 9999px) {
+      .side-bar-container,
+      #side-bar,
+      .sidebar-wrapper,
+      #sidebar-wrapper,
+      #sidebar-container,
+      [class*="sidebar"] {
+        display: none !important;
+        width: 0 !important;
+      }
+    }
   </style>
 
-  <!-- Ensure clean cursor behavior inside iframe -->
+  <!-- JS fallback: forcibly remove sidebar elements post-load -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.documentElement.style.cursor = 'default';
+    });
+
+    window.addEventListener('load', function () {
+      var kill = [
+        '.side-bar-container', '#side-bar', '.sidebar-wrapper',
+        '#sidebar-wrapper', '#sidebar-container',
+        '.footer-container', '#footer',
+        '.logo-container', '.logo-wrapper',
+        '.hamburger-icon', '.menu-icon',
+        '.top-bar', '.player-top'
+      ];
+      kill.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          el.remove();
+        });
+      });
+
+      // Catch dynamically-injected sidebar elements
+      var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          m.addedNodes.forEach(function (node) {
+            if (node.nodeType !== 1) return;
+            var el = node;
+            if (el.matches && (
+              el.matches('[class*="sidebar"]') ||
+              el.matches('[class*="menu-icon"]') ||
+              el.matches('[class*="hamburger"]')
+            )) {
+              el.remove();
+            }
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
     });
   </script>
 
