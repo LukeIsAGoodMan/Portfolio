@@ -205,21 +205,23 @@ export default function FinanceChatAgent({ scenarioId }: { scenarioId: string })
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_300px] gap-4 w-full">
 
         {/* ── Left: Compliance Manual (desktop only) ── */}
-        <div className="hidden lg:block rounded-2xl border border-white/[0.06] bg-[#0a0e17] p-5 max-h-[600px] overflow-y-auto">
+        <div className="hidden lg:block rounded-2xl border border-white/[0.06] bg-[#0a0e17] p-5 h-[650px] max-h-[80vh] overflow-y-auto">
           <p className="text-[10px] uppercase tracking-[0.12em] text-slate-500 font-semibold mb-4">
             Compliance Manual
           </p>
           <ComplianceManual highlightRule={violated} />
         </div>
 
-        {/* ── Center: Chat Panel ── */}
+        {/* ── Center: Chat Panel — fixed height container ── */}
         <motion.div
           animate={shakeChat ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
           transition={{ duration: 0.4 }}
-          className={`rounded-2xl border overflow-hidden flex flex-col transition-shadow duration-500 ${
-            chatFlash
-              ? "border-red-400/40 shadow-[0_0_30px_rgba(239,68,68,0.15)]"
-              : "border-[#e2e5ea] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+          className={`rounded-2xl border overflow-hidden flex flex-col h-[650px] max-h-[80vh] transition-all duration-500 ${
+            isBlocked
+              ? "border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.12)] animate-pulse"
+              : chatFlash
+                ? "border-red-400/40 shadow-[0_0_30px_rgba(239,68,68,0.15)]"
+                : "border-[#e2e5ea] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
           }`}
           style={{ background: chatFlash ? "#fef2f2" : "#ffffff" }}
         >
@@ -261,7 +263,7 @@ export default function FinanceChatAgent({ scenarioId }: { scenarioId: string })
           {/* Messages */}
           <div
             ref={scrollRef}
-            className="flex-1 min-h-[350px] max-h-[60vh] lg:h-[440px] lg:max-h-none overflow-y-auto px-4 md:px-5 py-5 space-y-4 scroll-smooth"
+            className="flex-1 overflow-y-auto px-4 md:px-5 py-5 space-y-4 scroll-smooth"
             onClick={() => inputRef.current?.focus()}
           >
             <AnimatePresence initial={false}>
@@ -314,12 +316,17 @@ export default function FinanceChatAgent({ scenarioId }: { scenarioId: string })
             style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))" }}
           >
             {isBlocked ? (
-              <div className="flex-1 flex items-center gap-3">
-                <p className="text-[12px] text-red-500 font-medium">Input blocked — review violation</p>
+              <div className="flex-1 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
+                  <p className="text-[12px] text-red-600 font-medium">
+                    Violation detected — review the highlighted rule
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={handleResume}
-                  className="px-4 py-2 bg-[#0A1221] text-white text-[12px] font-medium rounded-lg hover:opacity-90 active:scale-95 transition-all"
+                  className="px-5 py-2 bg-[#0A1221] text-white text-[12px] font-semibold rounded-full hover:opacity-90 active:scale-95 transition-all flex-shrink-0"
                 >
                   Resume
                 </button>
