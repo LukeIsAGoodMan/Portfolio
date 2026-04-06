@@ -92,61 +92,46 @@
   
   <script>window.THREE = { };</script>
 
-  <!-- ── Premium Digital Lab Shell ── -->
+  <!-- ── Premium Digital Lab Shell v3 — Surgical ── -->
   <style>
-    /* ── 1. Total background reset ── */
-    html, body, #app, #preso,
-    .frame-area, .cs-preso,
-    .slide-container, .slide-transition-container {
-      background: #0f172a !important;
+    /* ── 1. Dark background + centered viewport ── */
+    html, body {
       background-color: #0f172a !important;
       margin: 0 !important;
       padding: 0 !important;
-    }
-
-    html, body {
       overflow: hidden !important;
+      height: 100vh !important;
       cursor: default;
     }
 
-    /* ── 2. Nuclear hide — all player chrome ── */
-    .side-bar-container,
+    /* ── 2. Hide ONLY player chrome (not content) ── */
     #side-bar,
+    .side-bar-container,
     .sidebar-wrapper,
-    #sidebar-wrapper,
-    #sidebar-container,
-    [class*="sidebar"],
-    .footer-container,
     #footer,
-    .player-controls,
+    .footer-container,
     .bottom-ui-container,
-    [class*="bottom-ui"],
-    .logo-container,
-    .logo-wrapper,
-    [class*="logo-"],
-    .hamburger-icon,
-    .menu-icon,
-    [class*="hamburger"],
-    [class*="menu-icon"],
+    .log-container,
+    .header-container,
     .mobile-load-title-overlay,
     .mobile-chrome-warning,
-    .slide-loader,
-    .top-bar,
-    [class*="top-bar"],
-    .player-top,
-    [class*="player-top"] {
+    .slide-loader {
       display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      width: 0 !important;
-      height: 0 !important;
-      overflow: hidden !important;
-      pointer-events: none !important;
-      position: absolute !important;
-      left: -9999px !important;
     }
 
-    /* ── 3. Center & frame the canvas ── */
+    /* ── 3. Force content containers visible & centered ── */
+    #app, #preso,
+    .cs-preso, .frame-area,
+    .slide-container, .slide-layer {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    #app {
+      background: #0f172a !important;
+    }
+
     #preso {
       position: fixed !important;
       inset: 0 !important;
@@ -156,7 +141,7 @@
       background: #0f172a !important;
     }
 
-    /* The presentation wrapper (direct child of #preso) */
+    /* ── 4. Premium framing on the presentation wrapper ── */
     #preso > * {
       border-radius: 16px !important;
       box-shadow:
@@ -166,7 +151,7 @@
       overflow: hidden !important;
     }
 
-    /* ── 4. Force content to fill iframe space ── */
+    /* ── 5. Clean up inner spacing ── */
     .cs-preso,
     .frame-area,
     .slide-layer,
@@ -175,69 +160,7 @@
       padding: 0 !important;
       border: none !important;
     }
-
-    /* Kill any white background on internal layers */
-    .frame-description,
-    .frame-description-area,
-    .cs-preso-wrapper {
-      background: transparent !important;
-      background-color: transparent !important;
-    }
-
-    /* ── 5. Responsive: never show menu on any size ── */
-    @media (max-width: 9999px) {
-      .side-bar-container,
-      #side-bar,
-      .sidebar-wrapper,
-      #sidebar-wrapper,
-      #sidebar-container,
-      [class*="sidebar"] {
-        display: none !important;
-        width: 0 !important;
-      }
-    }
   </style>
-
-  <!-- JS fallback: forcibly remove sidebar elements post-load -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.documentElement.style.cursor = 'default';
-    });
-
-    window.addEventListener('load', function () {
-      var kill = [
-        '.side-bar-container', '#side-bar', '.sidebar-wrapper',
-        '#sidebar-wrapper', '#sidebar-container',
-        '.footer-container', '#footer',
-        '.logo-container', '.logo-wrapper',
-        '.hamburger-icon', '.menu-icon',
-        '.top-bar', '.player-top'
-      ];
-      kill.forEach(function (sel) {
-        document.querySelectorAll(sel).forEach(function (el) {
-          el.remove();
-        });
-      });
-
-      // Catch dynamically-injected sidebar elements
-      var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (m) {
-          m.addedNodes.forEach(function (node) {
-            if (node.nodeType !== 1) return;
-            var el = node;
-            if (el.matches && (
-              el.matches('[class*="sidebar"]') ||
-              el.matches('[class*="menu-icon"]') ||
-              el.matches('[class*="hamburger"]')
-            )) {
-              el.remove();
-            }
-          });
-        });
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    });
-  </script>
 
 </head>
 <body style="background: #0f172a" class="cs-HTML theme-unified">
@@ -621,6 +544,52 @@
   
 
   <link rel="stylesheet" href="html5/data/css/output.min.css" data-noprefix/>
+
+  <!-- ── Click-to-Advance + Continuous Chrome Cleanup ── -->
+  <script>
+    window.addEventListener('load', function () {
+      // 1. Click-to-advance on the presentation area
+      var preso = document.getElementById('preso') || document.querySelector('.cs-preso');
+      if (preso) {
+        preso.style.cursor = 'pointer';
+        preso.addEventListener('click', function (e) {
+          // Don't interfere with actual interactive elements inside slides
+          var tag = e.target.tagName;
+          if (tag === 'BUTTON' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+          if (e.target.getAttribute('role') === 'button') return;
+          if (e.target.closest('button, [role="button"], a, input, select, textarea')) return;
+
+          // Try Storyline's internal next API
+          if (window.DS && window.DS.appState && typeof window.DS.appState.next === 'function') {
+            window.DS.appState.next();
+          } else {
+            // Fallback: simulate Right Arrow key
+            document.dispatchEvent(new KeyboardEvent('keydown', {
+              bubbles: true, key: 'ArrowRight', code: 'ArrowRight', keyCode: 39, which: 39
+            }));
+          }
+        });
+      }
+
+      // 2. Continuous cleanup: hide chrome that Storyline may inject after load
+      var chromeSelectors = [
+        '#side-bar', '.side-bar-container', '.sidebar-wrapper',
+        '#footer', '.footer-container', '.bottom-ui-container',
+        '.header-container', '.log-container'
+      ];
+      function hideChrome() {
+        chromeSelectors.forEach(function (sel) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.style.display = 'none';
+          });
+        });
+      }
+      hideChrome();
+
+      var observer = new MutationObserver(function () { hideChrome(); });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
 </body>
 <script src="html5/lib/scripts/bootstrapper.min.js"></script>
 </html>

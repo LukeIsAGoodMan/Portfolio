@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "label": "Experimental Showcase",
+    "title": "AI POWERED LAB",
+    "manifesto": "AI empowerment is not just generation \u2014 it is controlled evolution. This lab features AI enablement within compliance frameworks: through Prompt Constraints and Knowledge Base Locking, ensuring AI delivers infinite interactive possibilities while producing assessment results that are 100% audit-compliant.",
+    "cta": "Explore Use Cases"
+  },
+  "cases": {
+    "label": "Use Cases",
+    "heading_line1": "Three Frontiers.",
+    "heading_line2": "One Framework.",
+    "items": [
+      {
+        "industry": "High Tech",
+        "title": "Adaptive Skill-Pilot",
+        "description": "Heuristic AI coaching that reduces time-to-competency by dynamically adjusting learning paths based on real-time performance signals. No two learners walk the same route.",
+        "stat": "-40% ramp time",
+        "tags": ["Adaptive Learning", "AI Coaching", "Heuristic Engine"]
+      },
+      {
+        "industry": "Finance",
+        "title": "Audit-Safe Compliance Sim",
+        "description": "RAG-based legal anchoring ensures every AI-generated assessment traces back to verified policy documents. Zero hallucination. Zero drift. Full audit trail.",
+        "stat": "100% traceable",
+        "tags": ["RAG Pipeline", "Compliance", "Zero-Drift Audit"]
+      },
+      {
+        "industry": "Retail",
+        "title": "The Empathetic Frontline",
+        "description": "Large-scale emotional intelligence roleplay simulation. AI personas calibrated to realistic customer archetypes deliver consistent, scalable soft-skill training across thousands of agents.",
+        "stat": "10K+ agents",
+        "tags": ["EQ Simulation", "Roleplay AI", "Scalable Soft Skills"]
+      }
+    ]
+  },
+  "simulation": {
+    "label": "Live Prototype",
+    "heading": "See it in action.",
+    "description": "An interactive prototype demonstrating prompt-constrained AI coaching within a compliance-safe sandbox.",
+    "startLabel": "Launch Prototype",
+    "openTab": "Open in New Tab"
+  }
+}

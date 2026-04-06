@@ -101,6 +101,43 @@ body::after {
   }
 }
 
+/* ─── Navigation background (light default, dark override via :has) ─── */
+.nav-scrolled {
+  background-color: rgba(245, 245, 247, 0.72);
+}
+
+/* ─── Dark page overrides (AI Lab) ─── */
+body:has(.dark-page) {
+  background: #0B101A;
+}
+
+body:has(.dark-page) .nav-scrolled {
+  background-color: rgba(11, 16, 26, 0.72);
+  --nav-border: rgba(255, 255, 255, 0.08);
+}
+
+body:has(.dark-page) header a,
+body:has(.dark-page) header span,
+body:has(.dark-page) header button span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body:has(.dark-page) header a[class*="font-semibold"] {
+  color: white;
+}
+
+body:has(.dark-page) footer {
+  background: #0B101A;
+}
+
+body:has(.dark-page) footer h2 {
+  color: rgba(148, 163, 184, 0.3) !important;
+}
+
+body:has(.dark-page) footer .border-t {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,

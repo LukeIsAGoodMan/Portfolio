@@ -13,6 +13,7 @@ import enCaseStudy from "./locales/en/caseStudy.json";
 import enRadar from "./locales/en/radar.json";
 import enImpact from "./locales/en/impact.json";
 import enStrategicCommunicator from "./locales/en/strategicCommunicator.json";
+import enAiLab from "./locales/en/aiLab.json";
 
 /* ── ZH locale imports ── */
 import zhCommon from "./locales/zh/common.json";
@@ -25,6 +26,7 @@ import zhCaseStudy from "./locales/zh/caseStudy.json";
 import zhRadar from "./locales/zh/radar.json";
 import zhImpact from "./locales/zh/impact.json";
 import zhStrategicCommunicator from "./locales/zh/strategicCommunicator.json";
+import zhAiLab from "./locales/zh/aiLab.json";
 
 i18n
   .use(LanguageDetector)
@@ -42,6 +44,7 @@ i18n
         radar: enRadar,
         impact: enImpact,
         strategicCommunicator: enStrategicCommunicator,
+        aiLab: enAiLab,
       },
       zh: {
         common: zhCommon,
@@ -54,6 +57,7 @@ i18n
         radar: zhRadar,
         impact: zhImpact,
         strategicCommunicator: zhStrategicCommunicator,
+        aiLab: zhAiLab,
       },
     },
     fallbackLng: "en",

@@ -12,6 +12,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 const navLinkDefs = [
   { href: "/", key: "home" },
   { href: "/work", key: "work" },
+  { href: "/ai-lab", key: "aiLab" },
   { href: "/about", key: "about" },
 ];
 
@@ -93,7 +94,7 @@ export default function Navigation() {
           rounded-full px-2
           ${
             scrolled
-              ? "bg-[rgba(245,245,247,0.72)] backdrop-blur-xl border border-[#d1d1d6] shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+              ? "nav-scrolled backdrop-blur-xl border border-[var(--nav-border,#d1d1d6)] shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
               : "bg-transparent border border-transparent"
           }
         `}
