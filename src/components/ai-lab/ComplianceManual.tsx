@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ═══════════════════════════════════════════════
    ComplianceManual — Searchable regulatory reference
-   Used in the Finance sandbox side panel / mobile drawer
+   Supports `highlightRule` prop for violation sync
    ═══════════════════════════════════════════════ */
 
 interface ManualEntry {
@@ -36,7 +36,7 @@ const MANUAL_ENTRIES: ManualEntry[] = [
     rule: "FINRA Rule 2210",
     title: "Communications with the Public",
     summary: "All member communications must be fair, balanced, and not misleading. No member may make any false, exaggerated, or unwarranted claim. Projected returns must be clearly labeled as hypothetical.",
-    tags: ["communications", "marketing", "projections"],
+    tags: ["communications", "marketing", "projections", "guarantee"],
   },
   {
     id: "aml-bsa",
@@ -61,8 +61,32 @@ const MANUAL_ENTRIES: ManualEntry[] = [
   },
 ];
 
-export default function ComplianceManual({ className = "" }: { className?: string }) {
+interface ComplianceManualProps {
+  className?: string;
+  /** Rule ID to highlight and auto-expand (e.g., "finra-2111") */
+  highlightRule?: string | null;
+}
+
+export default function ComplianceManual({ className = "", highlightRule }: ComplianceManualProps) {
   const [search, setSearch] = useState("");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Auto-expand and scroll to highlighted rule
+  useEffect(() => {
+    if (!highlightRule) return;
+    setExpandedId(highlightRule);
+    setSearch("");
+
+    // Scroll into view after a short delay for animation
+    setTimeout(() => {
+      const el = cardRefs.current[highlightRule];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 150);
+  }, [highlightRule]);
 
   const filtered = search.trim()
     ? MANUAL_ENTRIES.filter((e) => {
@@ -77,7 +101,6 @@ export default function ComplianceManual({ className = "" }: { className?: strin
 
   return (
     <div className={className}>
-      {/* Search */}
       <div className="mb-4">
         <input
           type="text"
@@ -88,11 +111,17 @@ export default function ComplianceManual({ className = "" }: { className?: strin
         />
       </div>
 
-      {/* Entries */}
-      <div className="space-y-3">
+      <div ref={scrollContainerRef} className="space-y-3">
         <AnimatePresence initial={false}>
           {filtered.map((entry) => (
-            <ManualCard key={entry.id} entry={entry} />
+            <ManualCard
+              key={entry.id}
+              ref={(el) => { cardRefs.current[entry.id] = el; }}
+              entry={entry}
+              isHighlighted={highlightRule === entry.id}
+              isExpanded={expandedId === entry.id}
+              onToggle={() => setExpandedId((prev) => (prev === entry.id ? null : entry.id))}
+            />
           ))}
         </AnimatePresence>
         {filtered.length === 0 && (
@@ -103,62 +132,78 @@ export default function ComplianceManual({ className = "" }: { className?: strin
   );
 }
 
-function ManualCard({ entry }: { entry: ManualEntry }) {
-  const [expanded, setExpanded] = useState(false);
-
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden"
-    >
-      <button
-        onClick={() => setExpanded((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left active:bg-white/[0.02] transition-colors"
-      >
-        <div>
-          <p className="font-mono text-[11px] text-cyan-400/60 tracking-[0.04em] mb-0.5">
-            {entry.rule}
-          </p>
-          <p className="text-[13px] text-slate-300 font-medium tracking-[-0.01em]">
-            {entry.title}
-          </p>
-        </div>
-        <svg
-          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          className={`text-slate-600 transition-transform duration-200 flex-shrink-0 ml-3 ${expanded ? "rotate-180" : ""}`}
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </button>
-
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4">
-              <p className="text-[12px] text-slate-500 leading-[1.7]">
-                {entry.summary}
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-2.5">
-                {entry.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 text-[9px] font-mono tracking-[0.04em] bg-white/[0.03] border border-white/[0.06] rounded-full text-slate-600">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+interface ManualCardProps {
+  entry: ManualEntry;
+  isHighlighted: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
+
+import { forwardRef } from "react";
+
+const ManualCard = forwardRef<HTMLDivElement, ManualCardProps>(
+  function ManualCard({ entry, isHighlighted, isExpanded, onToggle }, ref) {
+    return (
+      <motion.div
+        ref={ref}
+        layout
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        className={`rounded-xl border overflow-hidden transition-colors duration-500 ${
+          isHighlighted
+            ? "border-red-500/40 bg-red-500/[0.06] shadow-[0_0_20px_rgba(239,68,68,0.1)]"
+            : "border-white/[0.06] bg-white/[0.02]"
+        }`}
+      >
+        <button
+          onClick={onToggle}
+          className="w-full flex items-center justify-between px-4 py-3 text-left active:bg-white/[0.02] transition-colors"
+        >
+          <div>
+            <p className={`font-mono text-[11px] tracking-[0.04em] mb-0.5 transition-colors duration-500 ${
+              isHighlighted ? "text-red-400" : "text-cyan-400/60"
+            }`}>
+              {entry.rule}
+            </p>
+            <p className="text-[13px] text-slate-300 font-medium tracking-[-0.01em]">
+              {entry.title}
+            </p>
+          </div>
+          <svg
+            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            className={`text-slate-600 transition-transform duration-200 flex-shrink-0 ml-3 ${isExpanded ? "rotate-180" : ""}`}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="px-4 pb-4">
+                <p className="text-[12px] text-slate-500 leading-[1.7]">
+                  {entry.summary}
+                </p>
+                <div className="flex flex-wrap gap-1.5 mt-2.5">
+                  {entry.tags.map((tag) => (
+                    <span key={tag} className="px-2 py-0.5 text-[9px] font-mono tracking-[0.04em] bg-white/[0.03] border border-white/[0.06] rounded-full text-slate-600">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    );
+  }
+);
