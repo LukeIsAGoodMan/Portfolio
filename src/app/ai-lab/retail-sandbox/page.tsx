@@ -34,7 +34,7 @@ export default function RetailSandboxPage() {
   return (
     <div className="min-h-screen text-white" style={{ background: narrativeComplete ? "#FAF9F6" : "#0B101A" }}>
       {/* ════════════════════════════════════════
-         Section 1: Horizontal Narrative
+         Section 1: Vertical Waterfall Narrative
          ════════════════════════════════════════ */}
       {!narrativeComplete && (
         <>

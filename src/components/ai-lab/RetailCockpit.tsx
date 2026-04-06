@@ -41,6 +41,7 @@ export default function RetailCockpit({ scenarioId }: { scenarioId: string }) {
   ]);
 
   const [radar, setRadar] = useState<RadarScores>({ brandVoice: 50, empathy: 50, costControl: 50, efficiency: 50, resolution: 50 });
+  const [complianceOverride, setComplianceOverride] = useState<number | null>(null);
   const [mentorText, setMentorText] = useState("Mrs. Zhang is emotionally charged. Your first words set the tone. Acknowledge her frustration before addressing the damage.");
   const [isProcessing, setIsProcessing] = useState(false);
   const [round, setRound] = useState(0);
@@ -52,7 +53,8 @@ export default function RetailCockpit({ scenarioId }: { scenarioId: string }) {
   const chatHistory = useRef<ChatHistoryEntry[]>([]);
 
   const nextId = () => `d-${idCounter.current++}`;
-  const avgScore = useMemo(() => Math.round(RADAR_KEYS.reduce((s, k) => s + radar[k], 0) / 5), [radar]);
+  const radarAvg = useMemo(() => Math.round(RADAR_KEYS.reduce((s, k) => s + radar[k], 0) / 5), [radar]);
+  const avgScore = complianceOverride ?? radarAvg;
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -97,6 +99,9 @@ export default function RetailCockpit({ scenarioId }: { scenarioId: string }) {
               efficiency: clamp(parsed.radarScores.efficiency ?? radar.efficiency),
               resolution: clamp(parsed.radarScores.resolution ?? radar.resolution),
             });
+          }
+          if (typeof parsed.complianceScore === "number") {
+            setComplianceOverride(clamp(parsed.complianceScore));
           }
         } catch {
           addEntry("client", text);
@@ -402,23 +407,67 @@ function RoseCore({ isProcessing, size }: { isProcessing: boolean; size: number 
 
 /* ── Mini SVG Radar Chart ── */
 function MiniRadar({ scores }: { scores: RadarScores }) {
-  const size = 140; const center = size / 2; const radius = 50;
-  const values = RADAR_KEYS.map((k) => scores[k] / 100);
-  const step = 360 / 5;
-  function polar(angle: number, r: number) {
-    const rad = ((angle - 90) * Math.PI) / 180;
-    return { x: center + r * Math.cos(rad), y: center + r * Math.sin(rad) };
+  const size = 140;
+  const center = size / 2;
+  const radius = 50;
+  const axes = 5;
+  const step = 360 / axes;
+
+  // Clamp values to [0.02, 1] — floor at 0.02 so the polygon always has visible area
+  const values = RADAR_KEYS.map((k) => Math.max(0.02, Math.min(1, (scores[k] ?? 0) / 100)));
+
+  function polar(angleDeg: number, r: number) {
+    const rad = ((angleDeg - 90) * Math.PI) / 180;
+    return {
+      x: Math.round((center + r * Math.cos(rad)) * 100) / 100,
+      y: Math.round((center + r * Math.sin(rad)) * 100) / 100,
+    };
   }
-  const path = values.map((v, i) => { const { x, y } = polar(i * step, v * radius); return `${i === 0 ? "M" : "L"}${x},${y}`; }).join(" ") + " Z";
+
+  const points = values.map((v, i) => polar(i * step, v * radius));
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + " Z";
+
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
-      {[0.25, 0.5, 0.75, 1].map((r) => <circle key={r} cx={center} cy={center} r={r * radius} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.75" />)}
+      {/* Concentric rings */}
+      {[0.25, 0.5, 0.75, 1].map((r) => (
+        <circle key={r} cx={center} cy={center} r={r * radius} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.75" />
+      ))}
+      {/* Axis lines + labels */}
       {RADAR_LABELS.map((label, i) => {
-        const end = polar(i * step, radius + 2); const lp = polar(i * step, radius + 14);
-        return (<g key={i}><line x1={center} y1={center} x2={end.x} y2={end.y} stroke="rgba(255,255,255,0.04)" strokeWidth="0.75" /><text x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="central" className="fill-slate-600 text-[7px] font-medium">{label}</text></g>);
+        const end = polar(i * step, radius + 2);
+        const lp = polar(i * step, radius + 14);
+        return (
+          <g key={i}>
+            <line x1={center} y1={center} x2={end.x} y2={end.y} stroke="rgba(255,255,255,0.04)" strokeWidth="0.75" />
+            <text x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="central" className="fill-slate-600 text-[7px] font-medium">
+              {label}
+            </text>
+          </g>
+        );
       })}
-      <motion.path d={path} fill="rgba(244,194,175,0.12)" stroke="#f4c2af" strokeWidth="1.5" strokeLinejoin="round" initial={false} animate={{ d: path }} transition={{ duration: 0.6, ease: EASE_EXPO }} />
-      {values.map((v, i) => { const { x, y } = polar(i * step, v * radius); return <motion.circle key={i} r={2.5} fill="#f4c2af" initial={false} animate={{ cx: x, cy: y }} transition={{ duration: 0.6, ease: EASE_EXPO }} />; })}
+      {/* Data polygon */}
+      <motion.path
+        d={path}
+        fill="rgba(244,194,175,0.12)"
+        stroke="#f4c2af"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        initial={false}
+        animate={{ d: path }}
+        transition={{ duration: 0.6, ease: EASE_EXPO }}
+      />
+      {/* Vertex dots */}
+      {points.map((p, i) => (
+        <motion.circle
+          key={i}
+          r={2.5}
+          fill="#f4c2af"
+          initial={false}
+          animate={{ cx: p.x, cy: p.y }}
+          transition={{ duration: 0.6, ease: EASE_EXPO }}
+        />
+      ))}
     </svg>
   );
 }
