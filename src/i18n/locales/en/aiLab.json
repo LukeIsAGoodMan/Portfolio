@@ -2,8 +2,12 @@
   "hero": {
     "label": "Experimental Showcase",
     "title": "AI POWERED LAB",
-    "manifesto": "AI empowerment is not just generation \u2014 it is controlled evolution. This lab features AI enablement within compliance frameworks: through Prompt Constraints and Knowledge Base Locking, ensuring AI delivers infinite interactive possibilities while producing assessment results that are 100% audit-compliant.",
+    "hook": "Experience the Future of Enterprise Training. Explore immersive, AI-driven simulations that scale leadership, bridge high-tech skill gaps, and automate compliance\u2014all in a risk-free environment.",
     "cta": "Explore Use Cases"
+  },
+  "trust": {
+    "label": "Trust & Integrity",
+    "body": "AI empowerment is not just generation \u2014 it is controlled evolution. This lab features AI enablement within compliance frameworks: through Prompt Constraints and Knowledge Base Locking, ensuring 100% audit-compliant results."
   },
   "cases": {
     "label": "Use Cases",

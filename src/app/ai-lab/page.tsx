@@ -35,10 +35,10 @@ export default function AiLabPage() {
          Hero — Lab Manifesto
          ════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        {/* KnowledgeCore 3D — decorative backdrop */}
+        {/* KnowledgeCore 3D — interactive, behind text */}
         <div
           className="
-            absolute z-[1]
+            absolute z-[2]
             right-[-10%] md:right-[2%] lg:right-[8%]
             top-1/2 -translate-y-[55%]
             w-[80vw] md:w-[50vw] lg:w-[42vw]
@@ -56,12 +56,12 @@ export default function AiLabPage() {
           <KnowledgeCore />
         </div>
 
-        {/* Text content */}
+        {/* Text content — pointer-events-none so drags pass through to 3D canvas */}
         <motion.div
           initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.2, ease: EASE_EXPO }}
-          className="relative z-10 text-center max-w-[800px] px-6"
+          className="relative z-10 text-center max-w-[800px] px-6 pointer-events-none"
         >
           <p className="text-[13px] uppercase tracking-[0.2em] text-slate-400 mb-5 font-medium">
             {t("hero.label")}
@@ -77,14 +77,15 @@ export default function AiLabPage() {
             transition={{ duration: 0.8, delay: 0.5, ease: EASE_EXPO }}
             className="text-base md:text-lg text-slate-400 mt-8 leading-relaxed max-w-xl mx-auto"
           >
-            {t("hero.manifesto")}
+            {t("hero.hook")}
           </motion.p>
 
+          {/* CTA needs pointer-events restored */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="mt-12"
+            className="mt-12 pointer-events-auto"
           >
             <a
               href="#cases"
@@ -123,9 +124,43 @@ export default function AiLabPage() {
       </section>
 
       {/* ════════════════════════════════════════
+         Trust & Integrity Badge
+         ════════════════════════════════════════ */}
+      <section className="mx-auto max-w-[1200px] px-6 pb-20">
+        <motion.div
+          {...scrollRevealProps(0)}
+          className="
+            mx-auto max-w-[800px]
+            rounded-2xl
+            border border-white/[0.06]
+            bg-white/[0.02]
+            backdrop-blur-lg
+            px-8 py-7 md:px-12 md:py-9
+            flex items-start gap-5
+          "
+        >
+          {/* Shield icon */}
+          <div className="flex-shrink-0 mt-0.5">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400/70">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-blue-400/60 font-semibold mb-2">
+              {t("trust.label")}
+            </p>
+            <p className="text-[14px] md:text-[15px] text-slate-400 leading-[1.7]">
+              {t("trust.body")}
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ════════════════════════════════════════
          Triple Use-Case Grid
          ════════════════════════════════════════ */}
-      <section id="cases" className="mx-auto max-w-[1200px] px-6 py-32">
+      <section id="cases" className="mx-auto max-w-[1200px] px-6 py-20">
         <motion.div {...scrollRevealProps(0)} className="mb-16">
           <p className="text-[13px] uppercase tracking-[0.2em] text-slate-500 mb-4 font-medium">
             {t("cases.label")}
