@@ -141,8 +141,8 @@ export default function TerminalAgent({ scenarioId }: { scenarioId: string }) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 w-full">
-      {/* ── Terminal Panel ── */}
-      <div className="rounded-2xl border border-white/[0.06] bg-[#0a0e17] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      {/* ── Terminal Panel — fixed height ── */}
+      <div className="rounded-2xl border border-white/[0.06] bg-[#0a0e17] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[650px] max-h-[80vh] flex flex-col">
         {/* Title bar */}
         <div className="flex items-center gap-3 px-5 py-3 bg-white/[0.03] border-b border-white/[0.06]">
           <div className="flex items-center gap-2">
@@ -155,14 +155,14 @@ export default function TerminalAgent({ scenarioId }: { scenarioId: string }) {
           </span>
           <span className="font-mono text-[10px] tracking-[0.04em] text-cyan-400/60 select-none flex items-center gap-1.5">
             <span className={`inline-block w-1.5 h-1.5 rounded-full ${isProcessing ? "bg-cyan-400 animate-pulse" : "bg-cyan-400/40"}`} />
-            GPT-5.4 mini
+            GPT-5.4 mini // SRE_CORE
           </span>
         </div>
 
         {/* Log area */}
         <div
           ref={scrollRef}
-          className="h-[420px] overflow-y-auto p-5 font-mono text-[13px] leading-[1.7] scroll-smooth"
+          className="flex-1 overflow-y-auto p-5 font-mono text-[13px] leading-[1.7] scroll-smooth"
           onClick={() => inputRef.current?.focus()}
         >
           <AnimatePresence initial={false}>
