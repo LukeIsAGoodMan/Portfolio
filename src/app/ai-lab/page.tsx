@@ -175,7 +175,7 @@ export default function AiLabPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cases.map((item, i) => {
-            const linkHref = i === 0 ? "/ai-lab/tech-sandbox" : i === 1 ? "/ai-lab/finance-sandbox" : undefined;
+            const linkHref = i === 0 ? "/ai-lab/tech-sandbox" : i === 1 ? "/ai-lab/finance-sandbox" : i === 2 ? "/ai-lab/retail-sandbox" : undefined;
             const card = (
               <LabCard
                 industry={item.industry}
