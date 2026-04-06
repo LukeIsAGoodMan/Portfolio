@@ -22,6 +22,8 @@ export interface SandboxResponse {
   complianceScore: number;
   /** Optional: rule ID that was violated (e.g., "finra-2111") */
   violatedRule?: string;
+  /** Optional: suggested next command for the user */
+  recommendedCommand?: string;
 }
 
 /* ── Local command outputs (zero tokens) ── */
@@ -105,8 +107,14 @@ export const scenarios: Record<string, ScenarioConfig> = {
       '{',
       '  "terminalOutput": "Simulated bash/system output responding to the user command",',
       '  "mentorHint": "A Socratic pedagogical nudge — ask questions, never reveal the answer",',
-      '  "complianceScore": <number 0-100 reflecting how well the user follows rules>',
+      '  "complianceScore": <number 0-100 reflecting how well the user follows rules>,',
+      '  "recommendedCommand": "the single best next command for the user to try"',
       '}',
+      "",
+      "RECOMMENDED COMMAND: Always suggest one logical next step. Examples:",
+      "- After status: suggest 'logs payment-service'",
+      "- After logs: suggest 'inspect security-group sg-04'",
+      "- After inspect: suggest 'apply fix-cidr sg-04'",
       "",
       "If the user violates a compliance rule, reduce the score and explain why in mentorHint.",
       "If the user opens 0.0.0.0/0, set complianceScore to 0 and warn strongly.",
