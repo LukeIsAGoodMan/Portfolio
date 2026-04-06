@@ -5,14 +5,10 @@ import { motion, useMotionValue, useSpring, type MotionStyle } from "framer-moti
 import { useTranslation } from "react-i18next";
 import { scrollRevealProps } from "@/hooks/scrollReveal";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const KnowledgeCore = dynamic(
   () => import("@/components/hero/KnowledgeCore"),
-  { ssr: false },
-);
-
-const TerminalAgent = dynamic(
-  () => import("@/components/ai-lab/TerminalAgent"),
   { ssr: false },
 );
 
@@ -131,7 +127,7 @@ export default function AiLabPage() {
       {/* ════════════════════════════════════════
          Trust & Integrity Badge
          ════════════════════════════════════════ */}
-      <section className="mx-auto max-w-[1200px] px-6 pb-20">
+      <section className="mx-auto max-w-[1200px] px-6 pt-12 pb-20">
         <motion.div
           {...scrollRevealProps(0)}
           className="
@@ -178,48 +174,29 @@ export default function AiLabPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cases.map((item, i) => (
-            <motion.div
-              key={i}
-              {...scrollRevealProps(i * 0.1)}
-            >
+          {cases.map((item, i) => {
+            const card = (
               <LabCard
                 industry={item.industry}
                 title={item.title}
                 description={item.description}
                 stat={item.stat}
                 tags={item.tags}
+                hasLink={i === 0}
               />
-            </motion.div>
-          ))}
+            );
+
+            return (
+              <motion.div key={i} {...scrollRevealProps(i * 0.1)}>
+                {i === 0 ? (
+                  <Link href="/ai-lab/tech-sandbox">{card}</Link>
+                ) : (
+                  card
+                )}
+              </motion.div>
+            );
+          })}
         </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-         Mission-Critical Sandbox — Live Terminal
-         ════════════════════════════════════════ */}
-      <section className="mx-auto max-w-[1200px] px-6 py-20">
-        <motion.div {...scrollRevealProps(0)} className="text-center mb-12">
-          <p className="text-[13px] uppercase tracking-[0.2em] text-slate-500 mb-4 font-medium">
-            {t("cases.items.0.industry", { defaultValue: "High Tech" })}
-          </p>
-          <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tracking-[-0.04em] leading-[1.12] text-white mb-4">
-            {t("cases.items.0.title", { defaultValue: "Adaptive Skill-Pilot" })}
-          </h2>
-          <p className="text-[14px] md:text-[15px] text-slate-400 max-w-[520px] mx-auto leading-[1.6]">
-            {t("sandbox.description", { defaultValue: "Step into a production incident. Diagnose, investigate, and resolve — guided by an AI mentor that never gives you the answer." })}
-          </p>
-        </motion.div>
-
-        {/* Cursor sentinel — hide custom cursor over terminal */}
-        <motion.div
-          {...scrollRevealProps(0.1)}
-          onMouseEnter={() => document.body.classList.add("hide-custom-cursor")}
-          onMouseLeave={() => document.body.classList.remove("hide-custom-cursor")}
-          className="relative -mx-2 px-2"
-        >
-          <TerminalAgent scenarioId="tech-sre-sandbox" />
-        </motion.div>
       </section>
 
       {/* ════════════════════════════════════════
@@ -241,12 +218,14 @@ function LabCard({
   description,
   stat,
   tags,
+  hasLink = false,
 }: {
   industry: string;
   title: string;
   description: string;
   stat: string;
   tags: string[];
+  hasLink?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
@@ -296,7 +275,7 @@ function LabCard({
       onMouseMove={onMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={onMouseLeave}
-      className="
+      className={`
         group relative overflow-hidden
         rounded-[32px]
         border border-white/[0.08]
@@ -305,8 +284,8 @@ function LabCard({
         shadow-[0_2px_24px_rgba(0,0,0,0.3)]
         transition-shadow duration-500
         hover:shadow-[0_12px_48px_rgba(0,0,0,0.5)]
-        cursor-default
-      "
+        ${hasLink ? "cursor-pointer" : "cursor-default"}
+      `}
     >
       {/* Shimmer glow */}
       <div
@@ -360,16 +339,27 @@ function LabCard({
           </p>
         </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-0.5 text-[11px] font-medium tracking-[0.02em] bg-white/[0.04] border border-white/[0.06] text-slate-500 rounded-full"
-            >
-              {tag}
+        {/* Bottom: Tags + optional link arrow */}
+        <div className="flex items-end justify-between">
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 text-[11px] font-medium tracking-[0.02em] bg-white/[0.04] border border-white/[0.06] text-slate-500 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          {hasLink && (
+            <span className="text-[13px] font-medium text-slate-500 group-hover:text-white transition-colors duration-300 flex items-center gap-1.5 flex-shrink-0 ml-4">
+              Launch
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
             </span>
-          ))}
+          )}
         </div>
       </div>
     </motion.div>

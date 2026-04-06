@@ -153,7 +153,10 @@ export default function TerminalAgent({ scenarioId }: { scenarioId: string }) {
           <span className="flex-1 text-center text-[11px] text-slate-500 font-medium tracking-[0.02em] select-none">
             sre-sandbox — cluster-a
           </span>
-          <div className="w-[52px]" />
+          <span className="font-mono text-[10px] tracking-[0.04em] text-cyan-400/60 select-none flex items-center gap-1.5">
+            <span className={`inline-block w-1.5 h-1.5 rounded-full ${isProcessing ? "bg-cyan-400 animate-pulse" : "bg-cyan-400/40"}`} />
+            GPT-5.4 mini
+          </span>
         </div>
 
         {/* Log area */}
@@ -271,6 +274,59 @@ export default function TerminalAgent({ scenarioId }: { scenarioId: string }) {
                 {rule}
               </p>
             ))}
+          </div>
+        </div>
+
+        {/* Thinking Core */}
+        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-md p-5 flex items-center gap-4">
+          <div className="relative w-10 h-10 flex-shrink-0">
+            {/* Glow backdrop — only visible when thinking */}
+            <motion.div
+              className="absolute inset-[-4px] rounded-full"
+              animate={{
+                boxShadow: isProcessing
+                  ? "0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.15)"
+                  : "0 0 0px rgba(34,211,238,0)",
+              }}
+              transition={{ duration: 0.4 }}
+            />
+            {/* The core sphere */}
+            <motion.div
+              className="w-10 h-10 rounded-full border border-cyan-400/20"
+              style={{
+                background: isProcessing
+                  ? "radial-gradient(circle at 35% 35%, rgba(34,211,238,0.3), rgba(34,211,238,0.05) 60%, transparent)"
+                  : "radial-gradient(circle at 35% 35%, rgba(148,163,184,0.1), transparent 60%)",
+              }}
+              animate={isProcessing ? { rotate: 360 } : { rotate: 0 }}
+              transition={
+                isProcessing
+                  ? { repeat: Infinity, duration: 1.5, ease: "linear" }
+                  : { duration: 0.6 }
+              }
+            >
+              {/* Inner facet lines */}
+              <svg viewBox="0 0 40 40" className="w-full h-full">
+                <ellipse cx="20" cy="20" rx="14" ry="6" fill="none"
+                  stroke={isProcessing ? "rgba(34,211,238,0.4)" : "rgba(148,163,184,0.15)"}
+                  strokeWidth="0.75"
+                  className="transition-all duration-400"
+                />
+                <ellipse cx="20" cy="20" rx="6" ry="14" fill="none"
+                  stroke={isProcessing ? "rgba(34,211,238,0.3)" : "rgba(148,163,184,0.1)"}
+                  strokeWidth="0.75"
+                  className="transition-all duration-400"
+                />
+              </svg>
+            </motion.div>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] tracking-[0.06em] uppercase text-slate-500">
+              {isProcessing ? "Reasoning..." : "Standing by"}
+            </p>
+            <p className="font-mono text-[11px] text-cyan-400/70 tracking-[0.02em]">
+              GPT-5.4 mini LIVE
+            </p>
           </div>
         </div>
 
