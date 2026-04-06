@@ -6,13 +6,13 @@ import { scrollRevealProps } from "@/hooks/scrollReveal";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
-const ScrollNarrative = dynamic(
-  () => import("@/components/ai-lab/ScrollNarrative"),
+const FinanceNarrative = dynamic(
+  () => import("@/components/ai-lab/FinanceNarrative"),
   { ssr: false },
 );
 
-const TerminalAgent = dynamic(
-  () => import("@/components/ai-lab/TerminalAgent"),
+const FinanceChatAgent = dynamic(
+  () => import("@/components/ai-lab/FinanceChatAgent"),
   { ssr: false },
 );
 
@@ -22,13 +22,13 @@ export default function FinanceSandboxPage() {
   const [narrativeComplete, setNarrativeComplete] = useState(false);
 
   return (
-    <div className="bg-[#0A1221] min-h-screen text-white scroll-snap-y scroll-snap-mandatory">
+    <div className="min-h-screen text-white" style={{ background: narrativeComplete ? "#0A1221" : undefined }}>
       {/* ════════════════════════════════════════
          Section 1: The Narrative Waterfall
          ════════════════════════════════════════ */}
       {!narrativeComplete && (
         <>
-          {/* Back link — floating */}
+          {/* Floating back link */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -45,7 +45,7 @@ export default function FinanceSandboxPage() {
             </Link>
           </motion.div>
 
-          <ScrollNarrative onEnter={() => setNarrativeComplete(true)} />
+          <FinanceNarrative onEnter={() => setNarrativeComplete(true)} />
         </>
       )}
 
@@ -57,10 +57,10 @@ export default function FinanceSandboxPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: EASE_EXPO }}
-          className="min-h-screen pt-28 pb-32"
+          className="min-h-screen bg-[#0A1221] pt-28 pb-32"
         >
           <div className="mx-auto max-w-[1200px] px-6">
-            {/* Back link */}
+            {/* Nav */}
             <motion.div
               initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -92,19 +92,18 @@ export default function FinanceSandboxPage() {
                 Audit-Safe Compliance Sim
               </h1>
               <p className="text-[15px] text-slate-400 max-w-[560px] mx-auto leading-[1.6]">
-                Navigate a high-stakes cross-border fund transfer. Every decision is documented.
-                Every shortcut is flagged. The audit trail never lies.
+                You are the RM. The AI is your client. Maintain compliance under pressure — every response is audited.
               </p>
             </motion.div>
 
-            {/* Terminal — cursor sentinel */}
+            {/* Chat — cursor sentinel */}
             <motion.div
               {...scrollRevealProps(0.1)}
               onMouseEnter={() => document.body.classList.add("hide-custom-cursor")}
               onMouseLeave={() => document.body.classList.remove("hide-custom-cursor")}
               className="relative -mx-2 px-2"
             >
-              <TerminalAgent scenarioId="finance-compliance-sandbox" />
+              <FinanceChatAgent scenarioId="finance-compliance-sandbox" />
             </motion.div>
           </div>
         </motion.div>
