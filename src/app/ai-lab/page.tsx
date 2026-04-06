@@ -35,39 +35,18 @@ export default function AiLabPage() {
          Hero — Lab Manifesto
          ════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        {/* KnowledgeCore 3D — interactive, behind text */}
-        <div
-          className="
-            absolute z-[2]
-            right-[-10%] md:right-[2%] lg:right-[8%]
-            top-1/2 -translate-y-[55%]
-            w-[80vw] md:w-[50vw] lg:w-[42vw]
-            max-w-[620px]
-            h-[300px] md:h-[500px] lg:h-[600px]
-            opacity-30 md:opacity-40 lg:opacity-50
-            pointer-events-none md:pointer-events-auto
-            transition-opacity duration-1000
-          "
-          style={{
-            WebkitMaskImage: "radial-gradient(circle at 60% 50%, black 40%, transparent 85%)",
-            maskImage: "radial-gradient(circle at 60% 50%, black 40%, transparent 85%)",
-          }}
-        >
-          <KnowledgeCore />
-        </div>
-
-        {/* Text content — pointer-events-none so drags pass through to 3D canvas */}
+        {/* Text content — pointer-events-none so drags pass through to 3D */}
         <motion.div
           initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.2, ease: EASE_EXPO }}
-          className="relative z-10 text-center max-w-[800px] px-6 pointer-events-none"
+          className="relative z-[1] text-center max-w-[800px] px-6 pointer-events-none"
         >
           <p className="text-[13px] uppercase tracking-[0.2em] text-slate-400 mb-5 font-medium">
             {t("hero.label")}
           </p>
 
-          <h1 className="text-7xl md:text-[10vw] font-extrabold tracking-tighter leading-[0.9] bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-white">
+          <h1 className="text-7xl md:text-[10vw] font-extrabold tracking-tighter leading-[0.9] mb-10 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-white">
             {t("hero.title")}
           </h1>
 
@@ -75,12 +54,12 @@ export default function AiLabPage() {
             initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.5, ease: EASE_EXPO }}
-            className="text-base md:text-lg text-slate-400 mt-8 leading-relaxed max-w-xl mx-auto"
+            className="text-base md:text-lg text-slate-400 leading-relaxed max-w-xl mx-auto"
           >
             {t("hero.hook")}
           </motion.p>
 
-          {/* CTA needs pointer-events restored */}
+          {/* CTA — restore pointer-events */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -104,12 +83,33 @@ export default function AiLabPage() {
           </motion.div>
         </motion.div>
 
+        {/* KnowledgeCore 3D — highest z for drag priority */}
+        <div
+          className="
+            absolute z-[5]
+            right-[-10%] md:right-[2%] lg:right-[8%]
+            top-1/2 -translate-y-[55%]
+            w-[80vw] md:w-[50vw] lg:w-[42vw]
+            max-w-[620px]
+            h-[300px] md:h-[500px] lg:h-[600px]
+            opacity-30 md:opacity-40 lg:opacity-50
+            pointer-events-none md:pointer-events-auto
+            transition-opacity duration-1000
+          "
+          style={{
+            WebkitMaskImage: "radial-gradient(circle at 60% 50%, black 40%, transparent 85%)",
+            maskImage: "radial-gradient(circle at 60% 50%, black 40%, transparent 85%)",
+          }}
+        >
+          <KnowledgeCore />
+        </div>
+
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[1] pointer-events-none"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}
