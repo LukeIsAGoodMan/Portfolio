@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useJellyStretch } from "@/hooks/useJellyStretch";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 /* ─── Nav link definitions (keys only) ─── */
 const navLinkDefs = [
@@ -120,9 +119,6 @@ export default function Navigation() {
                 isActive={pathname === link.href}
               />
             ))}
-            <div className="ml-6">
-              <LanguageSwitcher />
-            </div>
           </div>
 
           {/* Mobile hamburger */}
@@ -242,7 +238,6 @@ export default function Navigation() {
                 >
                   Email
                 </a>
-                <LanguageSwitcher />
               </div>
             </div>
           </motion.div>

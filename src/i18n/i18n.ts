@@ -1,6 +1,5 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 
 /* ── EN locale imports ── */
 import enCommon from "./locales/en/common.json";
@@ -15,21 +14,7 @@ import enImpact from "./locales/en/impact.json";
 import enStrategicCommunicator from "./locales/en/strategicCommunicator.json";
 import enAiLab from "./locales/en/aiLab.json";
 
-/* ── ZH locale imports ── */
-import zhCommon from "./locales/zh/common.json";
-import zhHero from "./locales/zh/hero.json";
-import zhHome from "./locales/zh/home.json";
-import zhWork from "./locales/zh/work.json";
-import zhProjects from "./locales/zh/projects.json";
-import zhResume from "./locales/zh/resume.json";
-import zhCaseStudy from "./locales/zh/caseStudy.json";
-import zhRadar from "./locales/zh/radar.json";
-import zhImpact from "./locales/zh/impact.json";
-import zhStrategicCommunicator from "./locales/zh/strategicCommunicator.json";
-import zhAiLab from "./locales/zh/aiLab.json";
-
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -46,28 +31,12 @@ i18n
         strategicCommunicator: enStrategicCommunicator,
         aiLab: enAiLab,
       },
-      zh: {
-        common: zhCommon,
-        hero: zhHero,
-        home: zhHome,
-        work: zhWork,
-        projects: zhProjects,
-        resume: zhResume,
-        caseStudy: zhCaseStudy,
-        radar: zhRadar,
-        impact: zhImpact,
-        strategicCommunicator: zhStrategicCommunicator,
-        aiLab: zhAiLab,
-      },
     },
+    lng: "en",
     fallbackLng: "en",
     defaultNS: "common",
     interpolation: {
       escapeValue: false, // React handles escaping
-    },
-    detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
     },
   });
 
